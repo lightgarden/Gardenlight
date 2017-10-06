@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpawnPlant : MonoBehaviour {
 
+	// This program sill spawn leaf prefabs a certain height above the plant seedling
+	public GameObject leaf;
+
 	// Use this for initialization
 	void Start () {
 		
