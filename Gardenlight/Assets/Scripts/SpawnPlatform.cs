@@ -26,7 +26,7 @@ public class SpawnPlatform : MonoBehaviour {
         Spawn();
 	}
 
-    void Spwan()
+    void Spawn()
     {
         for (int i=0; i< maxPlatforms; i++)
         {
