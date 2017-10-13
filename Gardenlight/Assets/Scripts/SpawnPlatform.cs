@@ -41,9 +41,9 @@ public class SpawnPlatform : MonoBehaviour
         {
 
             Vector2 newPlatformScale = new Vector2(Random.Range(minHorizontalScale, maxHorizontalScale), verticalScale);    //Determine horizontal size
-            float horizontalDisplacement = Random.Range(newPlatformScale.x / 2, screenWidth - newPlatformScale.x / 2);      //Determine horizontal position
-            float verticalDisplacement = Random.Range(verticalMin, verticalMax);                                            //Determine vertical position
-            Vector2 newPosition = startPosition + new Vector2(horizontalDisplacement, verticalDisplacement);
+            float horizontalDisplacement = Random.Range(newPlatformScale.x / 2, screenWidth - newPlatformScale.x / 2) - 8;      //Determine horizontal position
+			float verticalDisplacement = startPosition.y + Random.Range(verticalMin, verticalMax);                                            //Determine vertical position
+            Vector2 newPosition = new Vector2(horizontalDisplacement, verticalDisplacement);
 
             var iPlatform = Instantiate(platform, newPosition, Quaternion.identity);
             iPlatform.transform.localScale = newPlatformScale;
