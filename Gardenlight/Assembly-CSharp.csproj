@@ -54,8 +54,10 @@
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\PlayerActions.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SpawnPlant.cs" />
+     <Compile Include="Assets\Scripts\SpawnPlatform.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/matthewbofenkamp/Documents/GameStuff/Gardenlight/Gardenlight/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
