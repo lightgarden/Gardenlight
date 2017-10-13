@@ -4,47 +4,79 @@ using UnityEngine;
 
 //script for spawning in platforms, basically stolen wholesale from this tutorial: https://unity3d.com/learn/tutorials/topics/2d-game-creation/creating-basic-platformer-game
 // -10/06/2017 - script created -Arjuna
+// -10/13/2017 - made some changes to Spawn() -Arjuna
 
-public class SpawnPlatform : MonoBehaviour {
+public class SpawnPlatform : MonoBehaviour
+{
 
-    public int maxPlatforms = 20;       //adjusts the number of platforms that will be spawned at start
-    public GameObject platform;         //the platform that will be repeatedly spawned in, currently is generated in the editor and dragged into a field here
-    public float horizontalMin = -5f;   //horizontalMin and horizontalMax determine the maximum horizontal displacement that new platforms have relative to old platforms
-    public float horizontalMax = 5f;
-    public float verticalMin = 3;       //verticalMin and vertical determine the maximum vertical displacement that new platforms have relative to existing platforms
-    public float verticalMax = 8;
-    public float horizontalScaleSize = 1f; //maximum change in horizontal size
-    public float maxHorizontalSize = 15;   //maximum size of the platform
+    public GameObject player;
+    public GameObject platform;             //the platform that will be repeatedly spawned in, currently is generated in the editor and dragged into a field here
+    public int gameOverHeight = 100;        //If the earliest created platform is this distance from the player, it will be deleted
+    public int screenWidth = 16;            //Horizontal size fo the screen 
+    public float minHorizontalScale = 8f;   //The minimum size of the platform
+    public float maxHorizontalScale = 12f;  //The maximum size of the platform
+    public float verticalScale = 1f;        //The vertical size of the platform
+    public float verticalMin = 3f;          //verticalMin and verticalMax determine the maximum vertical displacement from current platforms that the new platforms will be spwaned at
+    public float verticalMax = 10f;
+    public float movespeed = 3f;            //Determines how fast the platforms will wiggle
+    public int maxPlatforms = 20;
+    public int onScreenPlatforms = 2;
+    private Queue<GameObject> platformQueue;
+    //camera fov is 10 units tall
 
     private Vector2 originPosition;     //the position of the "current" platform
-    private Vector2 originScale;        //the scale of the "current" platform
+    private Vector2 topPosition;
 
-	// Use this for initialization
-	void Start () {
-        originPosition = transform.position;
-        originScale = transform.localScale;
-        Spawn();
-	}
-
-    void Spawn()
+    // Use this for initialization
+    void Start()
     {
-        for (int i=0; i< maxPlatforms; i++)
-        {
-            Vector2 randomPosition = originPosition + new Vector2(Random.Range(horizontalMin, horizontalMax), Random.Range(verticalMin, verticalMax)); //determines the displacement of the new platform from the old platform
-            Vector2 randomScale = originScale + new Vector2(Random.Range(-horizontalScaleSize,horizontalScaleSize),0);                                //determines the scale size of the new platform
-            if (randomScale.x > maxHorizontalSize)      //making sure horizontal size of the platforms is not to large
-            {
-                randomScale.x = Random.Range(maxHorizontalSize / 4, (3 / 4) * maxHorizontalSize);
-            }
+        originPosition = transform.position;
+        platformQueue = new Queue<GameObject>(maxPlatforms);
+        Spawn(maxPlatforms, originPosition);
+    }
 
-            var iPlatform = Instantiate(platform, randomPosition, Quaternion.identity);
-            iPlatform.transform.localScale = randomScale;
-            originPosition = randomPosition;
+    void Spawn(int numPlatforms, Vector2 startPosition)
+    {
+        for (int i = 0; i < numPlatforms; i++)
+        {
+
+            Vector2 newPlatformScale = new Vector2(Random.Range(minHorizontalScale, maxHorizontalScale), verticalScale);    //Determine horizontal size
+            float horizontalDisplacement = Random.Range(newPlatformScale.x / 2, screenWidth - newPlatformScale.x / 2);      //Determine horizontal position
+            float verticalDisplacement = Random.Range(verticalMin, verticalMax);                                            //Determine vertical position
+            Vector2 newPosition = startPosition + new Vector2(horizontalDisplacement, verticalDisplacement);
+
+            var iPlatform = Instantiate(platform, newPosition, Quaternion.identity);
+            iPlatform.transform.localScale = newPlatformScale;
+            startPosition = newPosition;
+            platformQueue.Enqueue(iPlatform);
+            topPosition = new Vector2(iPlatform.transform.position.x, iPlatform.transform.position.y);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    void CreatePlatform()
+    {
+        Spawn(1, topPosition);
+    }
+
+    void DestroyPlatform()
+    {
+        GameObject temp = platformQueue.Dequeue();
+        Destroy(temp);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Check for the number of on screen platforms, spawn some in if there are not enough
+        //Delete the bottom most cloud and add a new cloud
+        //Check for which platforms which have plants on them, move the platforms that do not
+        //Remove platforms below max distance
+        float playerHeight = player.transform.position.y;
+        float platformHeight = platformQueue.Peek().transform.position.y;
+        if (playerHeight - platformHeight >= 10)
+        {
+            DestroyPlatform();
+            CreatePlatform();
+        }
+    }
 }
