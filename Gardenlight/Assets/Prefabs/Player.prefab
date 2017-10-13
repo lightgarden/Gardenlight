@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50620582499943970}
   - component: {fileID: 61127068175385726}
   - component: {fileID: 114909915749524196}
+  - component: {fileID: 114033832480174440}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -112,7 +113,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -128,6 +129,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114033832480174440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113495655750864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e32a956dc0de0846b0be494f2256566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  water: 100
+  player: {fileID: 114909915749524196}
+  seed: {fileID: 4032731196865698, guid: 125825381d97d9842acfc80f28027daf, type: 2}
+  plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
+  waterFall: {fileID: 4843669572547606, guid: 77b0e1fedd9bf1045b42d87306fcde27, type: 2}
+  wateringCan: {fileID: 4662324611006318, guid: fbdeae3b96bd602478f454ba7d47c000,
+    type: 2}
+  playerHeight: 10
+  waterLevel: 10
 --- !u!114 &114909915749524196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,3 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runSpeed: 0
   jumpForce: 0
+  canMove: 0
