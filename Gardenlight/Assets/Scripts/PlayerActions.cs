@@ -5,14 +5,13 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour {
     public float water = 100;
     public PlayerController player;
-    public Transform seed;
+    public Transform plant;
 
     public bool plantTimed = false;
     public bool waterTimed = false;
     public bool sunTimed = false;
 
     public float timer = 0;
-    private GameObject tempSeed; //required for planting function
 
     public int playerHeight = 10; //this should be changed based on height of player avatar
     public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
@@ -119,7 +118,7 @@ public class PlayerActions : MonoBehaviour {
     void plantSeed()
     {
         //the following instantiates a seed prefab at your feet
-        tempSeed = Instantiate(seed, new Vector3(this.transform.position.x, this.transform.position.y-playerHeight), this.transform.rotation).gameObject;
+        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y-playerHeight), this.transform.rotation);
 
         //please add animation trigger stuff here
 
