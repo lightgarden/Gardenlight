@@ -142,11 +142,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   water: 100
   player: {fileID: 114909915749524196}
-  seed: {fileID: 4032731196865698, guid: 125825381d97d9842acfc80f28027daf, type: 2}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
-  waterFall: {fileID: 4843669572547606, guid: 77b0e1fedd9bf1045b42d87306fcde27, type: 2}
-  wateringCan: {fileID: 4662324611006318, guid: fbdeae3b96bd602478f454ba7d47c000,
-    type: 2}
+  plantTimed: 0
+  waterTimed: 0
+  sunTimed: 0
+  timer: 0
   playerHeight: 10
   waterLevel: 10
 --- !u!114 &114909915749524196
