@@ -23,15 +23,15 @@ public class PlayerController : MonoBehaviour {
 		//horizontal movement:
 		float velo = 0f;
 
-		if (Input.GetKey (KeyCode.A) && canMove)
+		if (Input.GetKey(KeyCode.A) && canMove)
 			velo -= runSpeed;
-		if (Input.GetKey (KeyCode.D) && canMove)
+		if (Input.GetKey(KeyCode.D) && canMove)
 			velo += runSpeed;
 
 		rb.velocity = new Vector2 (velo, rb.velocity.y);
 
 		//jumping:
-		if (Input.GetKeyDown (KeyCode.W) && OnGround() && canMove)
+		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove)
 			rb.AddForce (Vector2.up * jumpForce);
 
 	}
