@@ -270,6 +270,11 @@ Prefab:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114033832480174440, guid: d8221be4acf4e4efd99f8294f08cd6bf,
+        type: 2}
+      propertyPath: playerHeight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8221be4acf4e4efd99f8294f08cd6bf, type: 2}
   m_IsPrefabParent: 0
@@ -695,8 +700,8 @@ MonoBehaviour:
   minHorizontalScale: 2
   maxHorizontalScale: 4
   verticalScale: 1
-  verticalMin: 1
-  verticalMax: 2
+  verticalMin: 2
+  verticalMax: 2.5
   movespeed: 3
   maxPlatforms: 20
   onScreenPlatforms: 2
