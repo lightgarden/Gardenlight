@@ -45,7 +45,7 @@ public class PlayerActions : MonoBehaviour {
                 currentLocation = this.transform.position;
             }
 
-            else if (Input.GetKeyDown(KeyCode.O) && plantPassed != NULL) //press O to water plant
+            else if (Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
             {
                 if (water >= waterLevel) //if water levels are high enough
                 {
@@ -61,7 +61,7 @@ public class PlayerActions : MonoBehaviour {
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.U) && plantPassed != NULL) //press U to use sun
+            else if (Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
             {
                 startSun();
                 currentLocation = this.transform.position;
