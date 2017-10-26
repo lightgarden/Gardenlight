@@ -6,6 +6,7 @@ public class PlayerActions : MonoBehaviour {
     public float water = 100;
     public PlayerController player;
     public Transform plant;
+    public Transform plantPassed;
     private Vector3 currentLocation;
 
     public bool plantTimed;
@@ -14,7 +15,7 @@ public class PlayerActions : MonoBehaviour {
 
     public float timer;
 
-    public int playerHeight = 10; //this should be changed based on height of player avatar
+    public float playerHeight = 1; //this should be changed based on height of player avatar
     public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
 
 	// Use this for initialization
@@ -44,7 +45,7 @@ public class PlayerActions : MonoBehaviour {
                 currentLocation = this.transform.position;
             }
 
-            else if (Input.GetKeyDown(KeyCode.O)) //press O to water plant
+            else if (Input.GetKeyDown(KeyCode.O) && plantPassed != NULL) //press O to water plant
             {
                 if (water >= waterLevel) //if water levels are high enough
                 {
@@ -60,7 +61,7 @@ public class PlayerActions : MonoBehaviour {
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.U)) //press U to use sun
+            else if (Input.GetKeyDown(KeyCode.U) && plantPassed != NULL) //press U to use sun
             {
                 startSun();
                 currentLocation = this.transform.position;
@@ -148,7 +149,7 @@ public class PlayerActions : MonoBehaviour {
     void plantSeed()
     {
         //the following instantiates a seed prefab at your feet
-        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y-playerHeight), this.transform.rotation);
+        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y-(playerHeight/2), this.transform.rotation);
 
         //please add animation trigger stuff here
 
@@ -162,6 +163,7 @@ public class PlayerActions : MonoBehaviour {
     void waterPlant()
     {
         //do watering animation trigger stuff here
+        plantPassed.GetComponent<SpawnPlant>().Water();
         water -= 5; //lose 5 waters for each time you water a plant
         waterTimed = false;
         player.runSpeed = 5;
@@ -173,14 +175,22 @@ public class PlayerActions : MonoBehaviour {
     void sunPower()
     {
         //insert sun animations here
-        //when sun spawns, use plant script to interact with sun trigger
-        //and start plant growth function
+        plantPassed.GetComponent<SpawnPlant>().Sun();
         sunTimed = false;
         player.runSpeed = 5;
         player.jumpForce = 300;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
+
+    void OnTriggerEnter2D(Collider2D other){
+        plantPassed = other.transform;
+    }
+
+    void OnTriggerExit2D(Collider2D other){
+        plantPassed = null;
+    }
+
 
 
 
