@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour {
     public float smoothTime = .3f;
     public GameObject safeCloud;
 
+
     private GameObject player;
 
     private Vector3 velocity;
@@ -26,7 +27,6 @@ public class CameraController : MonoBehaviour {
 	void FixedUpdate ()
     {
         Scroll();
-
         MoveSafeCloud();
 	}
 
@@ -65,5 +65,10 @@ public class CameraController : MonoBehaviour {
             targetPos.y += safeDistance - safeCloudDistance;
             safeCloud.transform.position = targetPos;
         }
+    }
+
+    public Vector3 GetCameraVelocity()
+    {
+        return velocity;
     }
 }
