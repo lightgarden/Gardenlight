@@ -26,13 +26,13 @@ public class SpawnPlant : MonoBehaviour {
 //		}
 	}
 
-	public void water()
+	public void Water()
 	{
 		water_status = true;
 	}
 
 
-	public void sun()
+	public void Sun()
 	{
 		if (water_status == true) {
 			growPlant();

@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1113495655750864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.08, y: -2.67, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61127068175385726
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -113,7 +113,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -143,11 +143,12 @@ MonoBehaviour:
   water: 100
   player: {fileID: 114909915749524196}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
+  plantPassed: {fileID: 0}
   plantTimed: 0
   waterTimed: 0
   sunTimed: 0
   timer: 0
-  playerHeight: 10
+  playerHeight: 1
   waterLevel: 10
 --- !u!114 &114909915749524196
 MonoBehaviour:
@@ -160,6 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b15402dc563a1f4c8287b63c53d94e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 1
-  jumpForce: 1
+  runSpeed: 6
+  jumpForce: 500
   canMove: 0
