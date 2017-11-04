@@ -33,7 +33,7 @@ public class PlayerActions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (player.OnGround() && (plantTimed || waterTimed || sunTimed))
+        if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
         {
             if (plantTimed) StartCoroutine(planting());
 
@@ -44,13 +44,13 @@ public class PlayerActions : MonoBehaviour {
 
         else
         {
-            if (player.OnGround() && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
+            if (!player.isMoving && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
             {
                 startPlant();
                 currentLocation = this.transform.position;
             }
 
-            else if (player.OnGround() && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
+            else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
             {
                 if (water >= waterLevel) //if water levels are high enough
                 {
@@ -66,7 +66,7 @@ public class PlayerActions : MonoBehaviour {
                 }
             }
 
-            else if (player.OnGround() && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
+            else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
             {
                 startSun();
                 currentLocation = this.transform.position;
