@@ -187,10 +187,26 @@ public class PlayerActions : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		plantPassed = other.gameObject;
+
+		//Temporary. Used to test water collection system
+		if (other.gameObject.name.Substring(0,5).Equals("Water"))
+		{
+			Debug.Log (other.gameObject.name);
+			water = Mathf.Min(water + 20, 100);
+			Destroy (other.gameObject);
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D other){
 		plantPassed = null;
+	}
+		
+	public string returnSomething()
+	{
+		//Used in conjunction with Debug text to display any wanted information
+		//Currently testing for water level
+		string returnString = water.ToString ();
+		return returnString;
 	}
 
 
