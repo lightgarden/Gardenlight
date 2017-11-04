@@ -15,6 +15,9 @@ public class PlayerActions : MonoBehaviour {
 
     public float timer;
 
+    public float jumpForce;
+    public float moveSpeed;
+
     public float playerHeight = 1; //this should be changed based on height of player avatar
     public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
 
@@ -24,11 +27,13 @@ public class PlayerActions : MonoBehaviour {
         plantTimed = false;
         waterTimed = false;
         sunTimed = false;
+        jumpForce = player.jumpForce;
+        moveSpeed = player.runSpeed;
 }
 	
 	// Update is called once per frame
 	void Update () {
-        if (plantTimed || waterTimed || sunTimed)
+        if (player.OnGround() && (plantTimed || waterTimed || sunTimed))
         {
             if (plantTimed) StartCoroutine(planting());
 
@@ -39,13 +44,13 @@ public class PlayerActions : MonoBehaviour {
 
         else
         {
-            if (Input.GetKeyDown(KeyCode.P)) //press P to plant seed
+            if (player.OnGround() && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
             {
                 startPlant();
                 currentLocation = this.transform.position;
             }
 
-            else if (Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
+            else if (player.OnGround() && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
             {
                 if (water >= waterLevel) //if water levels are high enough
                 {
@@ -61,7 +66,7 @@ public class PlayerActions : MonoBehaviour {
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
+            else if (player.OnGround() && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
             {
                 startSun();
                 currentLocation = this.transform.position;
@@ -154,8 +159,8 @@ public class PlayerActions : MonoBehaviour {
         //please add animation trigger stuff here
 
         plantTimed = false;
-        player.runSpeed = 5;
-        player.jumpForce = 300;
+        player.runSpeed = moveSpeed;
+        player.jumpForce = jumpForce;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
@@ -166,8 +171,8 @@ public class PlayerActions : MonoBehaviour {
         plantPassed.GetComponent<SpawnPlant>().Water();
         water -= 5; //lose 5 waters for each time you water a plant
         waterTimed = false;
-        player.runSpeed = 5;
-        player.jumpForce = 300;
+        player.runSpeed = moveSpeed;
+        player.jumpForce = jumpForce;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
@@ -177,8 +182,8 @@ public class PlayerActions : MonoBehaviour {
         //insert sun animations here
         plantPassed.GetComponent<SpawnPlant>().Sun();
         sunTimed = false;
-        player.runSpeed = 5;
-        player.jumpForce = 300;
+        player.runSpeed = moveSpeed;
+        player.jumpForce = jumpForce;
         player.canMove = true;
         this.transform.position = currentLocation;
     }

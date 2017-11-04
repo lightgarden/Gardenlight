@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	bool OnGround () {
+	public bool OnGround () {
 
 		//find width and height of character
 		BoxCollider2D coll = GetComponent<BoxCollider2D> ();
