@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212470759640134202}
   - component: {fileID: 114200603458969600}
   m_Layer: 0
-  m_Name: cloud
+  m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
