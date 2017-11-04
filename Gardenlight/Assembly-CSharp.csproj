@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SpawnPlant.cs" />
      <Compile Include="Assets\Scripts\SpawnPlatform.cs" />
+     <Compile Include="Assets\Scripts\WaterCollection.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/andrewcao/Documents/Projects/Gardenlight/Gardenlight/Gardenlight/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
