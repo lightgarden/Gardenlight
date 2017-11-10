@@ -192,6 +192,11 @@ public class PlayerActions : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other){
 		plantPassed = null;
 	}
+		
+	public void incrementWater(float x)
+	{
+		water = Mathf.Min (100, water + x);
+	}
 
 
 
