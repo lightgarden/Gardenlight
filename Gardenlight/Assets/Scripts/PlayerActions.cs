@@ -153,8 +153,12 @@ public class PlayerActions : MonoBehaviour {
 
     void plantSeed()
     {
-        //the following instantiates a seed prefab at your feet
-        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y - playerHeight / 2), transform.rotation);
+        //the following instantiates a seed prefab at your feet slightly offset
+        if(this.transform.localScale.x > 0) //player is facing right
+            Instantiate(plant, new Vector3(this.transform.position.x + 5, this.transform.position.y - playerHeight / 2), transform.rotation);
+        else //player is facing left
+            Instantiate(plant, new Vector3(this.transform.position.x - 5, this.transform.position.y - playerHeight / 2), transform.rotation);
+
 
         //please add animation trigger stuff here
 
