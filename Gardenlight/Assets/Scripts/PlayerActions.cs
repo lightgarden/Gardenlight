@@ -21,6 +21,8 @@ public class PlayerActions : MonoBehaviour {
     public float playerHeight = 1; //this should be changed based on height of player avatar
     public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
 
+    public float plantDistance;
+
 	// Use this for initialization
 	void Start () {
         player = this.GetComponent<PlayerController>();
@@ -29,10 +31,17 @@ public class PlayerActions : MonoBehaviour {
         sunTimed = false;
         jumpForce = player.jumpForce;
         moveSpeed = player.runSpeed;
+        plantDistance = playerHeight/2;
 }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
+        if(plantPassed != null && (plantPassed.transform.position.x - this.transform.position.x > plantDistance //plant is too far forward
+                            || plantPassed.transform.position.x - this.transform.position.x < 0)){ //plant is behind player
+            plantPassed = null;
+        }
+
         if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
         {
             if (plantTimed) StartCoroutine(planting());
@@ -196,9 +205,9 @@ public class PlayerActions : MonoBehaviour {
         plantPassed = other.transform;
     }
 
-    void OnTriggerExit2D(Collider2D other){
+/*     void OnTriggerExit2D(Collider2D other){
         plantPassed = null;
-    }
+    } */
 
 
 
