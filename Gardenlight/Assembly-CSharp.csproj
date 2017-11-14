@@ -53,7 +53,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\CloudMovement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\PlayerActions.cs" />
@@ -61,8 +60,17 @@
      <Compile Include="Assets\Scripts\SpawnPlant.cs" />
      <Compile Include="Assets\Scripts\SpawnPlatform.cs" />
      <Compile Include="Assets\Scripts\WaterCollection.cs" />
+ <Reference Include="Facebook.Unity">
+ <HintPath>/Users/ryan/Documents/Soph Sem1/Misc/Gardenlight/Gardenlight/Library/FacebookSDK/Facebook.Unity.dll</HintPath>
+ </Reference>
+ <Reference Include="Facebook.Unity.Arcade">
+ <HintPath>/Users/ryan/Documents/Soph Sem1/Misc/Gardenlight/Gardenlight/Library/FacebookSDK/Facebook.Unity.Arcade.dll</HintPath>
+ </Reference>
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/ryan/Documents/Soph Sem1/Misc/Gardenlight/Gardenlight/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ </Reference>
+ <Reference Include="FacebookNamedPipeClient">
+ <HintPath>/Users/ryan/Documents/Soph Sem1/Misc/Gardenlight/Gardenlight/Library/FacebookSDK/FacebookNamedPipeClient.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

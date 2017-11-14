@@ -104,12 +104,16 @@ MonoBehaviour:
   water: 100
   player: {fileID: 114909915749524196}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
+  plantPassed: {fileID: 0}
   plantTimed: 0
   waterTimed: 0
   sunTimed: 0
   timer: 0
-  playerHeight: 10
+  jumpForce: 0
+  moveSpeed: 0
+  playerHeight: 1.5
   waterLevel: 10
+  plantDistance: 1
 --- !u!114 &114678965603814670
 MonoBehaviour:
   m_ObjectHideFlags: 1
