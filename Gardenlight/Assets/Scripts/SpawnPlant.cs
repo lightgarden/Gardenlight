@@ -16,14 +16,4 @@ public class SpawnPlant : MonoBehaviour {
 	void Update () {
 		
 	}
-
-	public void Sun(){
-
-	}
-
-	public void Water(){
-
-	}
-
-
 }

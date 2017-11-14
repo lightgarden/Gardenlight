@@ -1,16 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerActions.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="33" Column="34" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SpawnPlatform.cs">
-    <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SpawnPlatform.cs" Line="31" Column="24" />
-      <File FileName="Assets/Scripts/SpawnPlant.cs" Line="1" Column="1" />
->>>>>>> 278faca6603b3157b5f73e852b0b2171b341614d
+      <File FileName="Assets/Scripts/PlayerActions.cs" Line="197" Column="3" />
+      <File FileName="Assets/Scripts/WaterCollection.cs" Line="22" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
