@@ -182,6 +182,9 @@ public class PlayerActions : MonoBehaviour {
         this.transform.position = currentLocation;
     }
 
-
+	public void incrementWater(float value)
+	{
+		water = Mathf.Min (100, water + value);
+	}
 
 }
