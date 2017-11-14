@@ -6,7 +6,6 @@ public class PlayerActions : MonoBehaviour {
     public float water = 100;
     public PlayerController player;
     public Transform plant;
-    public Transform plantPassed;
     private Vector3 currentLocation;
 
     public bool plantTimed;
@@ -15,13 +14,8 @@ public class PlayerActions : MonoBehaviour {
 
     public float timer;
 
-    public float jumpForce;
-    public float moveSpeed;
-
-    public float playerHeight = 1; //this should be changed based on height of player avatar
+    public int playerHeight = 10; //this should be changed based on height of player avatar
     public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
-
-    public float plantDistance;
 
 	// Use this for initialization
 	void Start () {
@@ -29,20 +23,11 @@ public class PlayerActions : MonoBehaviour {
         plantTimed = false;
         waterTimed = false;
         sunTimed = false;
-        jumpForce = player.jumpForce;
-        moveSpeed = player.runSpeed;
-        plantDistance = playerHeight/2;
 }
 	
 	// Update is called once per frame
-	void Update () 
-    {
-        if(plantPassed != null && (plantPassed.transform.position.x - this.transform.position.x > plantDistance //plant is too far forward
-                            || plantPassed.transform.position.x - this.transform.position.x < 0)){ //plant is behind player
-            plantPassed = null;
-        }
-
-        if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
+	void Update () {
+        if (plantTimed || waterTimed || sunTimed)
         {
             if (plantTimed) StartCoroutine(planting());
 
@@ -53,13 +38,13 @@ public class PlayerActions : MonoBehaviour {
 
         else
         {
-            if (!player.isMoving && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
+            if (Input.GetKeyDown(KeyCode.P)) //press P to plant seed
             {
                 startPlant();
                 currentLocation = this.transform.position;
             }
 
-            else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
+            else if (Input.GetKeyDown(KeyCode.O)) //press O to water plant
             {
                 if (water >= waterLevel) //if water levels are high enough
                 {
@@ -75,7 +60,7 @@ public class PlayerActions : MonoBehaviour {
                 }
             }
 
-            else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
+            else if (Input.GetKeyDown(KeyCode.U)) //press U to use sun
             {
                 startSun();
                 currentLocation = this.transform.position;
@@ -162,18 +147,14 @@ public class PlayerActions : MonoBehaviour {
 
     void plantSeed()
     {
-        //the following instantiates a seed prefab at your feet slightly offset
-        if(this.transform.localScale.x > 0) //player is facing right
-            Instantiate(plant, new Vector3(this.transform.position.x + 5, this.transform.position.y - playerHeight / 2), transform.rotation);
-        else //player is facing left
-            Instantiate(plant, new Vector3(this.transform.position.x - 5, this.transform.position.y - playerHeight / 2), transform.rotation);
-
+        //the following instantiates a seed prefab at your feet
+        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y-playerHeight), this.transform.rotation);
 
         //please add animation trigger stuff here
 
         plantTimed = false;
-        player.runSpeed = moveSpeed;
-        player.jumpForce = jumpForce;
+        player.runSpeed = 5;
+        player.jumpForce = 300;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
@@ -181,11 +162,10 @@ public class PlayerActions : MonoBehaviour {
     void waterPlant()
     {
         //do watering animation trigger stuff here
-        plantPassed.GetComponent<SpawnPlant>().Water();
         water -= 5; //lose 5 waters for each time you water a plant
         waterTimed = false;
-        player.runSpeed = moveSpeed;
-        player.jumpForce = jumpForce;
+        player.runSpeed = 5;
+        player.jumpForce = 300;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
@@ -193,22 +173,14 @@ public class PlayerActions : MonoBehaviour {
     void sunPower()
     {
         //insert sun animations here
-        plantPassed.GetComponent<SpawnPlant>().Sun();
+        //when sun spawns, use plant script to interact with sun trigger
+        //and start plant growth function
         sunTimed = false;
-        player.runSpeed = moveSpeed;
-        player.jumpForce = jumpForce;
+        player.runSpeed = 5;
+        player.jumpForce = 300;
         player.canMove = true;
         this.transform.position = currentLocation;
     }
-
-    void OnTriggerEnter2D(Collider2D other){
-        plantPassed = other.transform;
-    }
-
-/*     void OnTriggerExit2D(Collider2D other){
-        plantPassed = null;
-    } */
-
 
 
 
