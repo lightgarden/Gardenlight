@@ -183,7 +183,7 @@ public class PlayerActions : MonoBehaviour {
 	void waterPlant()
 	{
 		//do watering animation trigger stuff here
-		plantPassed.GetComponent<SpawnPlant>().water();
+		plantPassed.GetComponent<SpawnPlant>().Water();
 		water -= 5; //lose 5 waters for each time you water a plant
 		waterTimed = false;
 		player.runSpeed = moveSpeed;
@@ -195,7 +195,7 @@ public class PlayerActions : MonoBehaviour {
 	void sunPower()
 	{
 		//insert sun animations here
-		plantPassed.GetComponent<SpawnPlant>().sun();
+		plantPassed.GetComponent<SpawnPlant>().Sun();
 		sunTimed = false;
 		player.runSpeed = moveSpeed;
 		player.jumpForce = jumpForce;
