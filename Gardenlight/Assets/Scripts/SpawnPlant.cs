@@ -30,13 +30,15 @@ public class SpawnPlant : MonoBehaviour {
 	public void water()
 	{
 		water_status = true;
+        print("water is true");
 	}
 
 
 	public void sun()
 	{
 		if (water_status == true) {
-			growPlant();
+            print("plant is growing");
+            growPlant();
 		}
 	}
 
