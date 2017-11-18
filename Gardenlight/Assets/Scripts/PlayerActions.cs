@@ -33,14 +33,19 @@ public class PlayerActions : MonoBehaviour {
 		sunTimed = false;
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
-		plantDistance = playerHeight/2;
+		//plantDistance = playerHeight/2;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(plantPassed != null && (plantPassed.transform.position.x - this.transform.position.x > plantDistance //plant is too far forward
-			|| plantPassed.transform.position.x - this.transform.position.x < 0)){ //plant is behind player
+		if(plantPassed != null && (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance //plant is too far away
+			|| plantPassed.transform.position.x < this.transform.position.x - 0.5)){ //plant is behind player
+            //print("plant is now null");
+            //print(Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x));
+            //print(plantDistance);
+            //if (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance) print("first condition");
+            //if(plantPassed.transform.position.x < this.transform.position.x) print("second condition");
 			plantPassed = null;
 		}
 
@@ -74,7 +79,8 @@ public class PlayerActions : MonoBehaviour {
 					//display message "Water Levels aren't High Enough" above player head
 					//can add another argument for GUIStyle (background, color, etc.) if needed
 					GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight / 2, 100, 20), "Your water levels are too low!");
-				}
+                    print("could not water");
+                }
 			}
 
 			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
@@ -183,7 +189,7 @@ public class PlayerActions : MonoBehaviour {
 	void waterPlant()
 	{
 		//do watering animation trigger stuff here
-		plantPassed.GetComponent<SpawnPlant>().Water();
+		plantPassed.GetComponent<SpawnPlant>().water();
 		water -= 5; //lose 5 waters for each time you water a plant
 		waterTimed = false;
 		player.runSpeed = moveSpeed;
@@ -195,7 +201,7 @@ public class PlayerActions : MonoBehaviour {
 	void sunPower()
 	{
 		//insert sun animations here
-		plantPassed.GetComponent<SpawnPlant>().Sun();
+		plantPassed.GetComponent<SpawnPlant>().sun();
 		sunTimed = false;
 		player.runSpeed = moveSpeed;
 		player.jumpForce = jumpForce;
@@ -205,6 +211,7 @@ public class PlayerActions : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		plantPassed = other.transform;
+        print("plant is passed");
 	}
 
 	/*     void OnTriggerExit2D(Collider2D other){
