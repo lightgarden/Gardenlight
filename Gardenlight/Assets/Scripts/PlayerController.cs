@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey(KeyCode.D) && canMove)
 			velo += runSpeed;
 
-		rb.velocity = new Vector2 (velo, rb.velocity.y);
+		if (canMove)
+			rb.velocity = new Vector2 (velo, rb.velocity.y);
 
 		//jumping:
 		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove)
@@ -53,5 +54,19 @@ public class PlayerController : MonoBehaviour {
 
 		return Physics2D.Linecast (p1, p2);
 
+	}
+
+
+	//v is veloctiy player is knocked
+	//s is time for inability to move
+	public IEnumerator knockBack(Vector2 v, float s)
+	{
+		rb.velocity = new Vector2 (0, 0);
+		canMove = false;
+		rb.velocity = v;
+		Debug.Log (rb.velocity);
+
+		yield return new WaitForSeconds (s);
+		canMove = true;
 	}
 }
