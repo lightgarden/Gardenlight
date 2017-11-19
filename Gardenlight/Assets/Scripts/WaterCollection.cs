@@ -18,7 +18,6 @@ public class WaterCollection : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other)
 	{
-		Debug.Log ("works");
 		player.incrementWater (3);
 	}
 	void OnTriggerEnter2D(Collider2D other)
