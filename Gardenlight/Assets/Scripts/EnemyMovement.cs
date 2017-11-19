@@ -11,13 +11,12 @@ public class EnemyMovement : MonoBehaviour {
 	private float start;
 	private bool aggro;
 
-
-
 	private EnemyCharacteristics attributes;
 	public GameObject player;
 
 	void Start () 
 	{
+		player = GameObject.Find ("Player");
 		attributes = GetComponent<EnemyCharacteristics> ();
 		distance = 10;
 		speed = Random.Range (3, 5);
