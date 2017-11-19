@@ -197,8 +197,6 @@ public class PlayerActions : MonoBehaviour {
 	{
 		water = Mathf.Min (100, water + x);
 	}
-
-
-
+		
 
 }
