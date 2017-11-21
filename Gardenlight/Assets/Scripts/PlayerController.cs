@@ -9,31 +9,40 @@ public class PlayerController : MonoBehaviour {
 	public float runSpeed;
 	public float jumpForce;
     public bool canMove; //checks if player is allowed to move
+	public bool isMoving;
 
 	// Use this for initialization
 	void Start () {
 
 		rb = GetComponent<Rigidbody2D> ();
         canMove = true;
+		isMoving = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+        isMoving = false;
 		//horizontal movement:
 		float velo = 0f;
 
-		if (Input.GetKey(KeyCode.A) && canMove)
+		if (Input.GetKey(KeyCode.A) && canMove){
 			velo -= runSpeed;
-		if (Input.GetKey(KeyCode.D) && canMove)
+			isMoving = true;
+		}
+		if (Input.GetKey(KeyCode.D) && canMove){
 			velo += runSpeed;
+			isMoving = true;
+		}
 
 		if (canMove)
 			rb.velocity = new Vector2 (velo, rb.velocity.y);
 
 		//jumping:
-		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove)
+		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove){
 			rb.AddForce (Vector2.up * jumpForce);
+			isMoving = true;
+		}
 
 	}
 
