@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33074532991040524}
   - component: {fileID: 23106124137038668}
   - component: {fileID: 61304718913149462}
-  - component: {fileID: 114082053900919946}
+  - component: {fileID: 114593171413241882}
   m_Layer: 0
   m_Name: cloud
   m_TagString: Untagged
@@ -107,7 +107,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114082053900919946
+--- !u!114 &114593171413241882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
