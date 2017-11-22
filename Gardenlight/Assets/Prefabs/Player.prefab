@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114033832480174440}
   - component: {fileID: 212611494143006874}
   - component: {fileID: 114678965603814670}
+  - component: {fileID: 114921218504988224}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be1147ef61ea49ccb628cb56ed8c93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 114033832480174440}
+  player: {fileID: 0}
 --- !u!114 &114909915749524196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,9 +139,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 6
-  jumpForce: 500
+  jumpForce: 5000
   canMove: 0
   isMoving: 0
+--- !u!114 &114921218504988224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113495655750864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aeb32424da9045a1b80ec4ac0f12358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  water: 100
+  player: {fileID: 0}
+  plant: {fileID: 0}
+  plantPassed: {fileID: 0}
+  plantTimed: 0
+  waterTimed: 0
+  sunTimed: 0
+  timer: 0
+  jumpForce: 0
+  moveSpeed: 0
+  playerHeight: 1
+  waterLevel: 10
+  plantDistance: 2
+  seedDistance: 1
 --- !u!212 &212611494143006874
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +176,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -166,7 +191,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
