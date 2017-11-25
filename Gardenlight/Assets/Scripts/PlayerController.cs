@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float jumpForce;
     public bool canMove; //checks if player is allowed to move
 	public bool isMoving;
+	public bool jumped;
 
 	public Animator anim;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
         canMove = true;
 		isMoving = false;
+		jumped = false;
 	}
 
 	// Update is called once per frame
@@ -52,18 +54,23 @@ public class PlayerController : MonoBehaviour {
 			anim.SetBool("Walk", false);
 
 		//jumping:
-		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove)
-		{
-			//animation trigger
+		if (Input.GetKeyDown (KeyCode.W) && OnGround () && canMove) {
+			anim.SetTrigger ("Jump");
 			rb.AddForce (Vector2.up * jumpForce);
 			isMoving = true;
+			jumped = true;
 		}
+		//not jumping
+		else if (Input.GetKeyUp (KeyCode.W)) {
+			anim.ResetTrigger ("Jump");
+		}
+
+		anim.SetBool ("Mid-Air", !OnGround ());
 
 	}
 
 	bool OnGround ()
 	{
-		//falling = false
 
 		//find width and height of character
 		BoxCollider2D coll = GetComponent<BoxCollider2D> ();
