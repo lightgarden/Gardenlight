@@ -10,27 +10,39 @@ public class PlayerController : MonoBehaviour {
 	public float jumpForce;
     public bool canMove; //checks if player is allowed to move
 	public bool isMoving;
+	public bool jumped;
+
+	public Animator anim;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+	{
+		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D> ();
         canMove = true;
 		isMoving = false;
+		jumped = false;
 	}
 
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+	{
         isMoving = false;
 		//horizontal movement:
 		float velo = 0f;
 
-		if (Input.GetKey(KeyCode.A) && canMove){
+		if (Input.GetKey(KeyCode.A) && canMove)
+		{
+			//flip sprite on x
+			anim.SetBool("Walk", true);
+			GetComponent<SpriteRenderer>().flipX = true;
 			velo -= runSpeed;
 			isMoving = true;
 		}
-		if (Input.GetKey(KeyCode.D) && canMove){
+		if (Input.GetKey(KeyCode.D) && canMove)
+		{
+			anim.SetBool ("Walk", true);
+			GetComponent<SpriteRenderer>().flipX = false;
 			velo += runSpeed;
 			isMoving = true;
 		}
@@ -38,15 +50,27 @@ public class PlayerController : MonoBehaviour {
 		if (canMove)
 			rb.velocity = new Vector2 (velo, rb.velocity.y);
 
+		if (!isMoving)
+			anim.SetBool("Walk", false);
+
 		//jumping:
-		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove){
+		if (Input.GetKeyDown (KeyCode.W) && OnGround () && canMove) {
+			anim.SetTrigger ("Jump");
 			rb.AddForce (Vector2.up * jumpForce);
 			isMoving = true;
+			jumped = true;
 		}
+		//not jumping
+		else if (Input.GetKeyUp (KeyCode.W)) {
+			anim.ResetTrigger ("Jump");
+		}
+
+		anim.SetBool ("Mid-Air", !OnGround ());
 
 	}
 
-	bool OnGround () {
+	bool OnGround ()
+	{
 
 		//find width and height of character
 		BoxCollider2D coll = GetComponent<BoxCollider2D> ();
@@ -70,6 +94,7 @@ public class PlayerController : MonoBehaviour {
 	//s is time for inability to move
 	public IEnumerator knockBack(Vector2 v, float s)
 	{
+		//animation trigger
 		rb.velocity = new Vector2 (0, 0);
 		canMove = false;
 		rb.velocity = v;
