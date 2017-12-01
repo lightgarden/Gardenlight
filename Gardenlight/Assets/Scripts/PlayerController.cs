@@ -9,34 +9,73 @@ public class PlayerController : MonoBehaviour {
 	public float runSpeed;
 	public float jumpForce;
     public bool canMove; //checks if player is allowed to move
+	public bool isMoving;
+	public bool jumped;
+	public bool facingRight;
+
+	public Animator anim;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+	{
+		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D> ();
         canMove = true;
+		isMoving = false;
+		jumped = false;
+		facingRight = true;
 	}
 
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+	{
+        isMoving = false;
 		//horizontal movement:
 		float velo = 0f;
 
 		if (Input.GetKey(KeyCode.A) && canMove)
+		{
+			//flip sprite on x
+			anim.SetBool("Walk", true);
+			GetComponent<SpriteRenderer>().flipX = true;
+			facingRight = false;
 			velo -= runSpeed;
+			isMoving = true;
+		}
 		if (Input.GetKey(KeyCode.D) && canMove)
+		{
+			anim.SetBool ("Walk", true);
+			GetComponent<SpriteRenderer>().flipX = false;
+			facingRight = true;
 			velo += runSpeed;
+			isMoving = true;
+		}
 
-		rb.velocity = new Vector2 (velo, rb.velocity.y);
+		if (canMove)
+			rb.velocity = new Vector2 (velo, rb.velocity.y);
+
+		if (!isMoving)
+			anim.SetBool("Walk", false);
 
 		//jumping:
-		if (Input.GetKeyDown(KeyCode.W) && OnGround() && canMove)
+		if (Input.GetKeyDown (KeyCode.W) && OnGround () && canMove) {
+			anim.SetTrigger ("Jump");
 			rb.AddForce (Vector2.up * jumpForce);
+			isMoving = true;
+			jumped = true;
+		}
+		//not jumping
+		else if (Input.GetKeyUp (KeyCode.W)) {
+			anim.ResetTrigger ("Jump");
+		}
+
+		anim.SetBool ("Mid-Air", !OnGround ());
 
 	}
 
-	bool OnGround () {
+
+	public bool OnGround () {
+
 
 		//find width and height of character
 		BoxCollider2D coll = GetComponent<BoxCollider2D> ();
@@ -53,5 +92,20 @@ public class PlayerController : MonoBehaviour {
 
 		return Physics2D.Linecast (p1, p2);
 
+	}
+
+
+	//v is veloctiy player is knocked
+	//s is time for inability to move
+	public IEnumerator knockBack(Vector2 v, float s)
+	{
+		//animation trigger
+		rb.velocity = new Vector2 (0, 0);
+		canMove = false;
+		rb.velocity = v;
+		Debug.Log (rb.velocity);
+
+		yield return new WaitForSeconds (s);
+		canMove = true;
 	}
 }
