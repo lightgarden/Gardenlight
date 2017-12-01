@@ -13,12 +13,13 @@ public class GameManager : MonoBehaviour {
 	public float levelHeight = 90;
 	public float curHeight;
 	public GameObject bg;
+	public GameObject startBg;
 
 	private GameObject prevLevel;
 	private GameObject curLevel;
 	private GameObject nextLevel;
 
-
+	public GameObject player;
 
 	// Use this for initialization
 	void Awake () {
@@ -27,18 +28,42 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		curHeight = player.transform.position.y;
+		if ((curHeight > 0) && (curHeight % 90 > 80) && nextLevel == null) {
+			transitionLevel ();
+		}
+		if (curHeight > level * levelHeight) {
+			changeLevel ();
+		}
 	}
 
 	void transitionLevel() {
-		
+		nextLevel = Instantiate (bg);
+		nextLevel.transform.position = new Vector3 (0, levelHeight * (level + 0.5f), 1);
+		if (level == 1) {
+									// Load rainy background
+
+		} else if (level == 2) {
+									// Load kelp background
+
+		} else if (level == 3) {
+									// Load final background
+		}	
 	}
 
 	void changeLevel() {
-		
+		prevLevel = curLevel;
+		curLevel = nextLevel;
+		level++;
+		nextLevel = null;
+
 	}
 
 	public int Level () {
 		return level;
+	}
+
+	public GameObject currentLevel() {
+		return curLevel;
 	}
 }
