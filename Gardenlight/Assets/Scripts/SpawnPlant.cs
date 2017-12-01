@@ -30,14 +30,12 @@ public class SpawnPlant : MonoBehaviour {
 	public void water()
 	{
 		water_status = true;
-        print("water is true");
 	}
 
 
 	public void sun()
 	{
 		if (water_status == true) {
-            print("plant is growing");
             growPlant();
 		}
 	}
@@ -45,7 +43,6 @@ public class SpawnPlant : MonoBehaviour {
 
 
 	void growPlant(){
-
 		Vector3 location = transform.position;
 		//Vector2 size_x = transform.localScale.x;
 
@@ -57,13 +54,10 @@ public class SpawnPlant : MonoBehaviour {
 
 		Vector2 stalkScale = stalk.transform.localScale;
 		//setting the location of the stalk (the same as the seed/plant)
-		stalk.transform.position = new Vector3(location.x, location.y + 0.5f*stalkScale.y);
-		//for debug
-		//Debug.Log (location.ToString ("F3"));
-
+		stalk.transform.position = new Vector2(location.x, location.y);
+//		//for debug
 
 		Vector3 stalkPosition = stalk.transform.position;	
-
 
 
 
@@ -71,17 +65,17 @@ public class SpawnPlant : MonoBehaviour {
 
 		var leafScale = new Vector2 (Random.Range(0.5f,1.0f), Random.Range(0.5f,0.75f));
 		var leafLocation1 =
-			new Vector3 (stalkPosition.x+0.5f*leafScale.x, stalkPosition.y+0.5f*stalkScale.y-leafScale.y);
-
+			new Vector2 (stalkPosition.x-2f*leafScale.x, stalkPosition.y+stalkScale.y-2f*leafScale.y-1f);
 		//add the first leaf
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[0].transform.position = leafLocation1;
 		leafObjects[0].transform.localScale = leafScale;
+		//		Debug.Log (stalk.transform.position.ToString ("F3"));
 
 
 		//add the second leaf
 		var leafLocation2 =
-			new Vector3 (location.x-0.5f*leafScale.x, stalkPosition.y+Random.Range(0.0f, 0.06f)*stalkScale.y-leafScale.y);
+			new Vector3 (location.x+2f*leafScale.x, stalkPosition.y+stalkScale.y-2f*leafScale.y-1f);
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[1].transform.position = leafLocation2;
 		var leftScale = new Vector2((-1.0f)*leafScale.x, leafScale.y);
@@ -98,7 +92,6 @@ public class SpawnPlant : MonoBehaviour {
 		// 	leafObjects[i].transform.localScale = leafScale;
 		//
 		// }
-
 
 	}
 }
