@@ -14,12 +14,18 @@ public class GameManager : MonoBehaviour {
 	public float curHeight;
 	public GameObject bg;
 	public GameObject startBg;
+	public GameObject lvl2;
+	public GameObject lvl3;
+	public GameObject lvl4;
 
 	private GameObject prevLevel;
 	private GameObject curLevel;
 	private GameObject nextLevel;
 
 	public GameObject player;
+
+
+
 
 	// Use this for initialization
 	void Awake () {
@@ -38,17 +44,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void transitionLevel() {
-		nextLevel = Instantiate (bg);
-		nextLevel.transform.position = new Vector3 (0, levelHeight * (level + 0.5f), 1);
 		if (level == 1) {
-									// Load rainy background
+			nextLevel = Instantiate (lvl2);							// Load rainy background
 
 		} else if (level == 2) {
-									// Load kelp background
+			nextLevel = Instantiate (lvl3);							// Load kelp background
 
 		} else if (level == 3) {
-									// Load final background
-		}	
+			nextLevel = Instantiate (lvl4);					// Load final background
+		}	else {
+			Win ();
+			return;
+		}
+		nextLevel.transform.position = new Vector3 (0, levelHeight * (level + 0.5f), 1);
 	}
 
 	void changeLevel() {
@@ -65,5 +73,13 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject currentLevel() {
 		return curLevel;
+	}
+
+	void Win () {
+		
+	}
+
+	void Loose() {
+		
 	}
 }
