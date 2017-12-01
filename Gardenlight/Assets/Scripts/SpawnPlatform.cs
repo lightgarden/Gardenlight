@@ -11,10 +11,11 @@ public class SpawnPlatform : MonoBehaviour
 
     public GameObject player;
     public GameObject platform;             //the platform that will be repeatedly spawned in, currently is generated in the editor and dragged into a field here
-    public int gameOverHeight = 100;        //If the earliest created platform is this distance from the player, it will be deleted
+	public GameObject rainCloud;
+	public int gameOverHeight = 100;        //If the earliest created platform is this distance from the player, it will be deleted
     public int screenWidth = 16;            //Horizontal size fo the screen 
-    public float minHorizontalScale = 8f;   //The minimum size of the platform
-    public float maxHorizontalScale = 12f;  //The maximum size of the platform
+    public float minHorizontalScale;   		//The minimum size of the platform
+    public float maxHorizontalScale;  		//The maximum size of the platform
     public float verticalScale = 1f;        //The vertical size of the platform
     public float verticalMin = 3f;          //verticalMin and verticalMax determine the maximum vertical displacement from current platforms that the new platforms will be spwaned at
     public float verticalMax = 10f;
@@ -45,8 +46,15 @@ public class SpawnPlatform : MonoBehaviour
 			float verticalDisplacement = startPosition.y + Random.Range(verticalMin, verticalMax);                                            //Determine vertical position
             Vector2 newPosition = new Vector2(horizontalDisplacement, verticalDisplacement);
 
-            var iPlatform = Instantiate(platform, newPosition, Quaternion.identity);
+			GameObject iPlatform;
+			if (Random.value > 0.9) {
+				iPlatform = Instantiate(rainCloud, newPosition, Quaternion.identity);
+			} else {
+				iPlatform = Instantiate(platform, newPosition, Quaternion.identity);
+			}
+			//print (iPlatform.transform.localScale);
             iPlatform.transform.localScale = newPlatformScale;
+			//print (iPlatform.transform.localScale);
             startPosition = newPosition;
             platformQueue.Enqueue(iPlatform);
             topPosition = new Vector2(iPlatform.transform.position.x, iPlatform.transform.position.y);
@@ -71,7 +79,7 @@ public class SpawnPlatform : MonoBehaviour
         //Delete the bottom most cloud and add a new cloud
         //Check for which platforms which have plants on them, move the platforms that do not
         //Remove platforms below max distance
-        float playerHeight = player.transform.position.y;
+		        float playerHeight = player.transform.position.y;
         float platformHeight = platformQueue.Peek().transform.position.y;
         if (playerHeight - platformHeight >= 10)
         {

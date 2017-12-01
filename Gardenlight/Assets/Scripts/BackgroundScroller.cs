@@ -35,9 +35,9 @@ public class BackgroundScroller : MonoBehaviour {
                                                cameraTransform.position.y - camOrthSize
                                                 + i * backgroundHeight + backgroundHeight / 2,
                                                cameraTransform.position.z + 20);
-                GameObject tile = Object.Instantiate(background, position, Quaternion.identity);
-                tile.name = "Tile " + i.ToString();
-                tesselate[i] = tile;
+                GameObject unit = Object.Instantiate(background, position, Quaternion.identity);
+                unit.name = "Tile " + i.ToString();
+                tesselate[i] = unit;
             }
             background.SetActive(false);
         }
@@ -50,9 +50,9 @@ public class BackgroundScroller : MonoBehaviour {
         //transform array of tiles and tesselate up or down accordingly
         if (tile)
         {
-            foreach (GameObject tile in tesselate)
+            foreach (GameObject unit in tesselate)
             {
-                tile.transform.position += cameraVelocity * bgScrollSpeed * Time.deltaTime;
+                unit.transform.position += cameraVelocity * bgScrollSpeed * Time.deltaTime;
             }
 
             if (cameraTransform.position.y - camOrthSize < (tesselate[bottom].transform.position.y - backgroundHeight / 2))
