@@ -1,128 +1,226 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActions : MonoBehaviour {
-    public float water = 100;
-    public PlayerController player;
-    public Transform seed;
-    public Transform plant;
-    public Transform sun;
-    public Transform waterFall; //the water that comes out of the watering can
-    public Transform wateringCan; //the watering can itself
+	public float water = 100;
+	public PlayerController player;
+	public Transform plant;
+	public Transform plantPassed;
+	private Vector3 currentLocation;
 
-    private GameObject tempSun; //required for sunPower function
-    private GameObject tempSeed; //required for planting function
+	public bool plantTimed;
+	public bool waterTimed;
+	public bool sunTimed;
 
-    public int playerHeight = 10; //this should be changed based on height of player avatar
-    public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
+	public float timer;
+
+	public float jumpForce;
+	public float moveSpeed;
+
+	public float playerHeight = 1; //this should be changed based on height of player avatar
+	public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
+
+	public float plantDistance = 2;
+	public float seedDistance = 1;
 
 	// Use this for initialization
 	void Start () {
-        wateringCan.GetComponent<Renderer>().enabled = false; //hide watering can
-    }
-	
+		player = this.GetComponent<PlayerController>();
+		plantTimed = false;
+		waterTimed = false;
+		sunTimed = false;
+		jumpForce = player.jumpForce;
+		moveSpeed = player.runSpeed;
+		//plantDistance = playerHeight/2;
+	}
+
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetKey(KeyCode.P)) //press P to plant seed
-        {
-            plantSeed();
-        }
+	void Update () 
+	{
+		if(plantPassed != null && (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance //plant is too far away
+			|| plantPassed.transform.position.x < this.transform.position.x - 0.5)){ //plant is behind player
+            //print("plant is now null");
+            //print(Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x));
+            //print(plantDistance);
+            //if (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance) print("first condition");
+            //if(plantPassed.transform.position.x < this.transform.position.x) print("second condition");
+			plantPassed = null;
+		}
 
-        else if(Input.GetKey(KeyCode.O)) //press O to water plant
-        {
-            if(water >= waterLevel) //if water levels are high enough
-            {
-                waterPlant();
-            }
+		if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
+		{
+			if (plantTimed) StartCoroutine(planting());
 
-            else
-            {
-                //display message "Water Levels aren't High Enough" above player head
-                //can add another argument for GUIStyle (background, color, etc.) if needed
-                GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight/2, 100, 20), "Your water levels are too low!");
-            }
-        }
+			else if (waterTimed) StartCoroutine(watering());
 
-        else if (Input.GetKey(KeyCode.U)) //press U to use sun
-        {
-            sunPower();
-        }
+			else if (sunTimed) StartCoroutine(sunning());
+		}
+
+		else
+		{
+			if (!player.isMoving && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
+			{
+				startPlant();
+				currentLocation = this.transform.position;
+			}
+
+			else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
+			{
+				if (water >= waterLevel) //if water levels are high enough
+				{
+					startWater();
+					currentLocation = this.transform.position;
+				}
+
+				else
+				{
+					//display message "Water Levels aren't High Enough" above player head
+					//can add another argument for GUIStyle (background, color, etc.) if needed
+					GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight / 2, 100, 20), "Your water levels are too low!");
+                    print("could not water");
+                }
+			}
+
+			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
+			{
+				startSun();
+				currentLocation = this.transform.position;
+			}
+		}
 
 	}
 
-    IEnumerator timeDelay()
-    {
-        yield return new WaitForSeconds(1);
-    }
+	IEnumerator planting()
+	{
+		while(plantTimed)
+		{
+			//Debug.Log(timer);
+			if (timer > 0) timer -= Time.deltaTime;
+			else
+			{
+				plantSeed();
+			}
+		}
+		yield return new WaitForSeconds(0);  //does nothing but yield a return value
+	}
 
-    void plantSeed()
-    {
-        player.runSpeed = 0;
-        player.jumpForce = 0;
-        player.canMove = false;
+	IEnumerator sunning()
+	{
 
-        //the following instantiates a seed prefab at your feet
-        tempSeed = Instantiate(seed, new Vector3(this.transform.position.x, this.transform.position.y-playerHeight), this.transform.rotation).gameObject;
+		while (sunTimed)
+		{
+			//Debug.Log(timer);
 
-        //to implement time delay, please add animation trigger stuff here
-        //so that basically canMove becomes true again only after animation is done
-        //right now I just added a 1 second time delay but it'll look awkward
-        StartCoroutine(timeDelay());
+			if (timer > 0) timer -= Time.deltaTime;
 
-        player.canMove = true;
-    }
+			else
+			{
+				sunPower();
+			}
+		}
+		yield return new WaitForSeconds(0);
 
-    void waterPlant()
-    {
-        //do watering animation trigger stuff here
+	}
 
-        player.runSpeed = 0;
-        player.jumpForce = 0;
-        player.canMove = false;
+	IEnumerator watering()
+	{
 
-        wateringCan.GetComponent<Renderer>().enabled = true; //show watering can
-        Instantiate(waterFall, wateringCan.transform.position, wateringCan.transform.rotation); //water appears
+		while (waterTimed)
+		{
+			//Debug.Log(timer);
 
-        //replaces seed with plant prefab
-        Destroy(tempSeed);
-        Instantiate(plant, new Vector3(this.transform.position.x, this.transform.position.y - playerHeight), this.transform.rotation);
+			if (timer > 0) timer -= Time.deltaTime;
 
-        //I added a "water" tag to water prefab to implement in OnTriggerEnter2D plant functions
-        //Perhaps add a 'watered' bool to plant and set it to true when water touches plant
+			else
+			{
+				waterPlant();
+			}
+		}
+		yield return new WaitForSeconds(0);
+	}
 
-        water -= 5; //lose 5 waters for each time you water a plant
-        wateringCan.GetComponent<Renderer>().enabled = false; //hide watering can
+	void startPlant()
+	{
+		player.canMove = false;
+		plantTimed = true;
+		player.runSpeed = 0;
+		player.jumpForce = 0;
+		timer = 10; //this freezes for 1 second
+	}
 
-        StartCoroutine(timeDelay());
-        player.canMove = true;
-    }
+	void startWater()
+	{
+		player.canMove = false;
+		waterTimed = true;
+		player.runSpeed = 0;
+		player.jumpForce = 0;
+		timer = 10;
+	}
 
-    void sunPower()
-    {
-        player.runSpeed = 0;
-        player.jumpForce = 0;
-        player.canMove = false;
+	void startSun()
+	{
+		player.canMove = false;
+		sunTimed = true;
+		player.runSpeed = 0;
+		player.jumpForce = 0;
+		timer = 10;
+	}
 
-        if (transform.localScale.x > 0){ // if facing right spawns sun to the right of player
-            tempSun = Instantiate(sun, new Vector3(transform.position.x + 10, transform.position.y), transform.rotation).gameObject;
-        }
-
-        else //if facing left spawns sun to the left of player
-        {
-            tempSun = Instantiate(sun, new Vector3(transform.position.x - 10, transform.position.y), transform.rotation).gameObject;
-        }
-
-        //insert sun animations here
-        //when sun spawns, use plant script to interact with sun trigger
-        //and start plant growth function
-
-        StartCoroutine(timeDelay());
-        Destroy(tempSun); //destroys sun once its functions are over
-
-        player.canMove = true;
-    }
+	void plantSeed()
+	{
+		//the following instantiates a seed prefab at your feet slightly offset
+		if(this.transform.localScale.x > 0) //player is facing right
+			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+		else //player is facing left
+			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
 
 
+		//please add animation trigger stuff here
+
+		plantTimed = false;
+		player.runSpeed = moveSpeed;
+		player.jumpForce = jumpForce;
+		player.canMove = true;
+		this.transform.position = currentLocation;
+	}
+
+	void waterPlant()
+	{
+		//do watering animation trigger stuff here
+		plantPassed.GetComponent<SpawnPlant>().water();
+		water -= 5; //lose 5 waters for each time you water a plant
+		waterTimed = false;
+		player.runSpeed = moveSpeed;
+		player.jumpForce = jumpForce;
+		player.canMove = true;
+		this.transform.position = currentLocation;
+	}
+
+	void sunPower()
+	{
+		//insert sun animations here
+		plantPassed.GetComponent<SpawnPlant>().sun();
+		sunTimed = false;
+		player.runSpeed = moveSpeed;
+		player.jumpForce = jumpForce;
+		player.canMove = true;
+		this.transform.position = currentLocation;
+	}
+
+	void OnTriggerEnter2D(Collider2D other){
+		plantPassed = other.transform;
+        print("plant is passed");
+	}
+
+	/*     void OnTriggerExit2D(Collider2D other){
+        plantPassed = null;
+    } */
+
+	public void incrementWater(float value)
+	{
+		water = Mathf.Min (100, water + value);
+	}
 
 }
