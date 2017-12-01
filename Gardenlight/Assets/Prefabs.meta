@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Gardenlight/Assets/Prefabs.meta
+guid: 3caa5344e4ebf4715b3c96b336dc9e93
+folderAsset: yes
+timeCreated: 1507334133
+=======
 guid: add9d9228ac3042c8af0982ce51ae167
 folderAsset: yes
 timeCreated: 1507322502
+>>>>>>> 278faca6603b3157b5f73e852b0b2171b341614d:Gardenlight/Assets/Prefabs.meta
 licenseType: Free
 DefaultImporter:
   userData: 
