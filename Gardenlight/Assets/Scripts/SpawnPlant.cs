@@ -62,14 +62,14 @@ public class SpawnPlant : MonoBehaviour {
 		//Debug.Log (location.ToString ("F3"));
 
 
-		Vector3 stalkPosition = stalk.transform.position;
+		Vector3 stalkPosition = stalk.transform.position;	
 
 
 
 
 		leafObjects = new List<GameObject>();
 
-		var leafScale = new Vector2 (Random.Range(2.0f,3.0f), Random.Range(0.5f,0.75f));
+		var leafScale = new Vector2 (Random.Range(0.5f,1.0f), Random.Range(0.5f,0.75f));
 		var leafLocation1 =
 			new Vector3 (stalkPosition.x+0.5f*leafScale.x, stalkPosition.y+0.5f*stalkScale.y-leafScale.y);
 
