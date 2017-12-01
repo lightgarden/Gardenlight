@@ -142,7 +142,9 @@ MonoBehaviour:
   state: 0
   levelHeight: 90
   curHeight: 0
-  bg: {fileID: 0}
+  bg: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df, type: 2}
+  startBg: {fileID: 519514923}
+  player: {fileID: 1958147714}
 --- !u!4 &99921038
 Transform:
   m_ObjectHideFlags: 0
@@ -296,7 +298,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 416374486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.9, z: 0}
+  m_LocalPosition: {x: 0.04, y: -4.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -401,6 +403,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &519514923 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df,
+    type: 2}
+  m_PrefabInternal: {fileID: 879152236}
 --- !u!1001 &879152236
 Prefab:
   m_ObjectHideFlags: 0
@@ -414,7 +421,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4884692435194252, guid: 7f7badf69cd444094868daee90e060df, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 43.1
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 4884692435194252, guid: 7f7badf69cd444094868daee90e060df, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1071,6 +1078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1958147714}
   platform: {fileID: 1516768950550856, guid: abdef6b806cea404ca7e1f7bd853d26c, type: 2}
+  rainCloud: {fileID: 1360465598907224, guid: 5ab4448158b154158b016463b84ac760, type: 2}
   gameOverHeight: 100
   screenWidth: 16
   minHorizontalScale: 0.5
@@ -1160,8 +1168,8 @@ MonoBehaviour:
   moveSpeed: 6
   playerHeight: 1
   waterLevel: 10
-  plantDistance: 2
-  seedDistance: 1
+  plantDistance: 1
+  seedDistance: 0.5
 --- !u!114 &1958147717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1249,6 +1257,7 @@ MonoBehaviour:
   canMove: 1
   isMoving: 0
   jumped: 0
+  facingRight: 0
   anim: {fileID: 1958147715}
 --- !u!61 &1958147721
 BoxCollider2D:
@@ -1391,26 +1400,6 @@ Prefab:
     - target: {fileID: 4870291601226840, guid: 5ab4448158b154158b016463b84ac760, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 198109438133401356, guid: 5ab4448158b154158b016463b84ac760,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1014449523
-      objectReference: {fileID: 0}
-    - target: {fileID: 198109438133401356, guid: 5ab4448158b154158b016463b84ac760,
-        type: 2}
-      propertyPath: CollisionModule.m_Dampen.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198109438133401356, guid: 5ab4448158b154158b016463b84ac760,
-        type: 2}
-      propertyPath: CollisionModule.collidesWithDynamic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198109438133401356, guid: 5ab4448158b154158b016463b84ac760,
-        type: 2}
-      propertyPath: CollisionModule.collisionMessages
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ab4448158b154158b016463b84ac760, type: 2}
