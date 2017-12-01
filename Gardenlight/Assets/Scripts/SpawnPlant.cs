@@ -53,7 +53,7 @@ public class SpawnPlant : MonoBehaviour {
 		Instantiate(stalk);
 		//seting the scale of the stalk
 		//stalk.transform.localScale = new Vector2(transform.localScale.x, Mathf.Abs(leafLocation1.y)+4.0f*Mathf.Abs(leafScale.y));
-		stalk.transform.localScale = new Vector2(transform.localScale.x, Random.Range(3.0f,4.0f));
+		stalk.transform.localScale = new Vector3(transform.localScale.x, Random.Range(5.0f,6.0f), 1);
 
 		Vector2 stalkScale = stalk.transform.localScale;
 		//setting the location of the stalk (the same as the seed/plant)
