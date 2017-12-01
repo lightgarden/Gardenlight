@@ -7,7 +7,6 @@ TagManager:
   - plant
   - water
   - sun
-  - Moon
   layers:
   - Default
   - TransparentFX
