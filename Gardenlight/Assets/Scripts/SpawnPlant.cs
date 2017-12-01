@@ -8,6 +8,7 @@ public class SpawnPlant : MonoBehaviour {
 
 	public GameObject leaf;
 	public GameObject stalk;
+	bool grow_status = false;
 	List<GameObject> leafObjects;
 	public bool water_status = false;
 
@@ -35,8 +36,9 @@ public class SpawnPlant : MonoBehaviour {
 
 	public void sun()
 	{
-		if (water_status == true) {
+		if (water_status == true && grow_status == false) {
             growPlant();
+			grow_status =true;
 		}
 	}
 
@@ -44,10 +46,9 @@ public class SpawnPlant : MonoBehaviour {
 
 	void growPlant(){
 		Vector3 location = transform.position;
+		Debug.Log (location.ToString ("F3"));
 		//Vector2 size_x = transform.localScale.x;
 
-
-		Instantiate(stalk);
 		//seting the scale of the stalk
 		//stalk.transform.localScale = new Vector2(transform.localScale.x, Mathf.Abs(leafLocation1.y)+4.0f*Mathf.Abs(leafScale.y));
 		stalk.transform.localScale = new Vector3(transform.localScale.x, Random.Range(5.0f,6.0f), 1);
@@ -58,6 +59,8 @@ public class SpawnPlant : MonoBehaviour {
 //		//for debug
 
 		Vector3 stalkPosition = stalk.transform.position;	
+
+		Instantiate(stalk);
 
 
 
