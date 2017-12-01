@@ -33,18 +33,25 @@ public class CameraController : MonoBehaviour {
     private void Scroll()
     {
         float verticalDistance = player.transform.position.y - transform.position.y;
-
+//		print (verticalDistance);
+//		print (camOrthSize * (1f - screenEdgeBuffer));
         //moves camera at same speed as player
         if (Mathf.Abs(verticalDistance) > camOrthSize * (1f - screenEdgeBuffer))
         {
-            velocity = Vector3.up * player.GetComponent<Rigidbody2D>().velocity.y;
-            transform.position += velocity * Time.deltaTime;
+			Vector3 targetPos =
+				new Vector3(transform.position.x,
+					player.transform.position.y,
+					transform.position.z);
+			transform.position = Vector3.SmoothDamp(transform.position, targetPos,
+				ref velocity, .1f);
+//            velocity = Vector3.up * player.GetComponent<Rigidbody2D>().velocity.y;
+//            transform.position += velocity * Time.deltaTime;
         }
 
         //slows camera to target position
         else
         {
-            if (velocity != Vector3.zero)
+			if (true)//velocity != Vector3.zero)
             {
                 Vector3 targetPos =
                       new Vector3(transform.position.x,
