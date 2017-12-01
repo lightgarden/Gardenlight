@@ -24,12 +24,16 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject player;
 
+	public GameObject winText;
+	public GameObject loseText;
 
 
 
 	// Use this for initialization
 	void Awake () {
 		GM = this;
+		//winText.SetActive (false);
+		//loseText.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -44,6 +48,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void transitionLevel() {
+		print ("level up");
 		if (level == 1) {
 			nextLevel = Instantiate (lvl2);							// Load rainy background
 
@@ -76,10 +81,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Win () {
-		
+		//winText.SetActive (true);
 	}
 
 	void Loose() {
-		
+		//loseText.SetActive (true);
 	}
 }
