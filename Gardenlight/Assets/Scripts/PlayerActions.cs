@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerActions : MonoBehaviour {
 	public float water = 100;
@@ -21,7 +22,7 @@ public class PlayerActions : MonoBehaviour {
 
 	public float playerHeight = 1; //this should be changed based on height of player avatar
 	public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
-
+	public Text waterText;
 	public float plantDistance = 2;
 	public float seedDistance = 1;
 
@@ -33,6 +34,7 @@ public class PlayerActions : MonoBehaviour {
 		sunTimed = false;
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
+		waterText.text = "Water level: " + waterLevel.ToString();
 		//plantDistance = playerHeight/2;
 	}
 
