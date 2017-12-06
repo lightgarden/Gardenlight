@@ -25,8 +25,13 @@ public class PlayerActions : MonoBehaviour {
 	public float plantDistance = 2;
 	public float seedDistance = 1;
 
+	public int plantSelected = 1;
+	//1 is beanstalk
+	//2 is mushroom plant
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		player = this.GetComponent<PlayerController>();
 		plantTimed = false;
 		waterTimed = false;
@@ -88,6 +93,15 @@ public class PlayerActions : MonoBehaviour {
 				startSun();
 				currentLocation = this.transform.position;
 			}
+			else if (Input.GetKeyDown(KeyCode.Y))
+			{
+				plantSelected++;
+				if (plantSelected >= 3) 
+				{
+					plantSelected = 1;
+				}
+				Debug.Log ("Plant " + plantSelected + " is selected");
+			}
 		}
 
 	}
@@ -147,7 +161,7 @@ public class PlayerActions : MonoBehaviour {
 		plantTimed = true;
 		player.runSpeed = 0;
 		player.jumpForce = 0;
-		timer = 10; //this freezes for 1 second
+		timer = 1; //this freezes for 1 second
 	}
 
 	void startWater()
@@ -156,7 +170,7 @@ public class PlayerActions : MonoBehaviour {
 		waterTimed = true;
 		player.runSpeed = 0;
 		player.jumpForce = 0;
-		timer = 10;
+		timer = 1;
 	}
 
 	void startSun()
@@ -171,12 +185,15 @@ public class PlayerActions : MonoBehaviour {
 	void plantSeed()
 	{
 		//the following instantiates a seed prefab at your feet slightly offset
-		if(this.transform.localScale.x > 0) //player is facing right
-			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
-		else //player is facing left
-			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
-
-
+		if (this.transform.localScale.x > 0) { //player is facing right
+			Instantiate (plant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+			plant.GetComponent<PlantType>().setType (plantSelected);
+		}
+		else { //player is facing left
+			Instantiate (plant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+		
+			plant.GetComponent<PlantType>().setType (plantSelected);
+		}
 		//please add animation trigger stuff here
 
 		plantTimed = false;
@@ -190,6 +207,7 @@ public class PlayerActions : MonoBehaviour {
 	{
 		//do watering animation trigger stuff here
 		plantPassed.GetComponent<SpawnPlant>().water();
+		plantPassed.GetComponent<SpawnPlant> ().spawnPlant ();
 		water -= 5; //lose 5 waters for each time you water a plant
 		waterTimed = false;
 		player.runSpeed = moveSpeed;

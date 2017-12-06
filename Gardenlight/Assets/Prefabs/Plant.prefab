@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4114751629233718}
   - component: {fileID: 114520296248089828}
   - component: {fileID: 61523924696160030}
+  - component: {fileID: 114181645123752084}
   - component: {fileID: 212119241314857142}
   m_Layer: 0
   m_Name: Plant
@@ -67,6 +68,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7364504, y: 2.680027}
   m_EdgeRadius: 0
+--- !u!114 &114181645123752084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1504276995978388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e63d88021c2d472baeabc565de8fae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114520296248089828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,7 +90,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5470c0d894464a0f95bd0ca114de7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plantType: 0
   leaf: {fileID: 1763491771369092, guid: 3c0a7980811484465a6e7737eddd10a4, type: 2}
+  stalk: {fileID: 1068579661847314, guid: fdb75e34815534f84b7a21ec0f4bc508, type: 2}
+  MushroomTop: {fileID: 1348382527391786, guid: 7dce8610bfa974d15bbe534053bd4dc0,
+    type: 2}
   water_status: 0
 --- !u!212 &212119241314857142
 SpriteRenderer:

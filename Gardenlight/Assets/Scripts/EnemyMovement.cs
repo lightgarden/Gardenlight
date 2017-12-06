@@ -49,19 +49,16 @@ public class EnemyMovement : MonoBehaviour {
 		{
 			if (Vector2.Distance (player.GetComponent<Transform> ().position, transform.position) <= searchRadius) 
 			{
-				Debug.Log ("aggro true");
 				aggro = true;
 			}
 
 			if (Vector2.Distance (player.GetComponent<Transform> ().position, transform.position) >= followRadius) 
 			{
-				Debug.Log ("aggro false");
 				aggro = false;
 			}
 
 			if (aggro) 
 			{
-				Debug.Log ("moving");
 				transform.position = Vector2.MoveTowards (transform.position, player.GetComponent<Transform> ().position, speed / 150f);
 			} 
 				
