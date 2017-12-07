@@ -51,13 +51,9 @@ public class PlayerActions : MonoBehaviour {
 	{
 		checkPassed ();
 
-		if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
+		if (!player.isMoving && (plantTimed || waterTimed))
 		{
 			if (plantTimed) StartCoroutine(planting());
-
-			else if (waterTimed) StartCoroutine(watering());
-
-			else if (sunTimed) StartCoroutine(sunning());
 		}
 
 		else
@@ -73,6 +69,7 @@ public class PlayerActions : MonoBehaviour {
 				if (water >= waterLevel) //if water levels are high enough
 				{
 					startWater();
+					startSun();
 					currentLocation = this.transform.position;
 				}
 
@@ -85,12 +82,6 @@ public class PlayerActions : MonoBehaviour {
 					//GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight / 2, 100, 20), "Your water levels are too low!");
                     print("could not water");
                 }
-			}
-
-			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null && plantContact) //press U to use sun
-			{
-				startSun();
-				currentLocation = this.transform.position;
 			}
 			else if (Input.GetKeyDown(KeyCode.Y))
 			{
@@ -123,40 +114,18 @@ public class PlayerActions : MonoBehaviour {
 		}
 		yield return new WaitForSeconds(0);  //does nothing but yield a return value
 	}
-
-	IEnumerator sunning()
-	{
-
-		while (sunTimed)
-		{
-			//Debug.Log(timer);
-
-			if (timer > 0) timer -= Time.deltaTime;
-
-			else
-			{
-				sunPower();
-			}
-		}
-		yield return new WaitForSeconds(0);
-
-	}
+		
 
 	IEnumerator watering()
 	{
+		Debug.Log ("Start watering");
+		yield return new WaitForSeconds(timer);
 
-		while (waterTimed)
-		{
-			//Debug.Log(timer);
+		Debug.Log ("Plant!");
+		waterPlant();
+		sunPower();
 
-			if (timer > 0) timer -= Time.deltaTime;
 
-			else
-			{
-				waterPlant();
-			}
-		}
-		yield return new WaitForSeconds(0);
 	}
 
 	void startPlant()
@@ -175,6 +144,7 @@ public class PlayerActions : MonoBehaviour {
 		player.runSpeed = 0;
 		player.jumpForce = 0;
 		timer = 1;
+		StartCoroutine (watering ());
 	}
 
 	void startSun()
