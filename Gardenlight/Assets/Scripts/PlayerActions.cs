@@ -27,6 +27,7 @@ public class PlayerActions : MonoBehaviour {
 
 	public float playerHeight = 1; //this should be changed based on height of player avatar
 	public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
+	public Slider waterBar;
 	public Text waterText;
 	public float plantDistance = 2;
 	public float seedDistance = 1;
@@ -112,6 +113,7 @@ public class PlayerActions : MonoBehaviour {
 		}
 
 		waterText.text = "Water level: " + water.ToString();
+		waterBar.value = water / 100f;
 
 	}
 
@@ -132,10 +134,7 @@ public class PlayerActions : MonoBehaviour {
 
 	IEnumerator watering()
 	{
-		Debug.Log ("Start watering");
 		yield return new WaitForSeconds(timer);
-
-		Debug.Log ("Plant!");
 		waterPlant();
 		sunPower();
 
