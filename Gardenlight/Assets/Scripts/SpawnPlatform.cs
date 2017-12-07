@@ -20,7 +20,7 @@ public class SpawnPlatform : MonoBehaviour
     public float verticalMin = 3f;          //verticalMin and verticalMax determine the maximum vertical displacement from current platforms that the new platforms will be spwaned at
     public float verticalMax = 10f;
     public float movespeed = 3f;            //Determines how fast the platforms will wiggle
-    public int maxPlatforms = 20;
+    public int maxPlatforms = 10;
     public int onScreenPlatforms = 2;
     private Queue<GameObject> platformQueue;
     //camera fov is 10 units tall
@@ -42,13 +42,22 @@ public class SpawnPlatform : MonoBehaviour
         {
 
             Vector2 newPlatformScale = new Vector2(Random.Range(minHorizontalScale, maxHorizontalScale), verticalScale);    //Determine horizontal size
-            float horizontalDisplacement = Random.Range(newPlatformScale.x / 2, screenWidth - newPlatformScale.x / 2) - 8;      //Determine horizontal position
-			float verticalDisplacement = startPosition.y + Random.Range(verticalMin, verticalMax);                                            //Determine vertical position
+			float horizontalDisplacement;
+			if (GameManager.GM.Level () == 1)
+				horizontalDisplacement = Random.Range (newPlatformScale.x / 2, screenWidth - newPlatformScale.x / 2) - 8;      //Determine horizontal position
+			else if (GameManager.GM.Level () == 2)
+				horizontalDisplacement = Random.Range (newPlatformScale.x / 2, 3 * screenWidth / 2 - newPlatformScale.x / 2) - 6;
+			else
+				horizontalDisplacement = Random.Range (newPlatformScale.x / 2, screenWidth / 2 - newPlatformScale.x / 2) - 4;
+
+			//As level goes up clouds can move more distance, possible spawn is more centered to avoid a lot of clouds moving offscreen
+			float verticalDisplacement = startPosition.y + Random.Range(verticalMin + GameManager.GM.Level (), verticalMax + 2f * GameManager.GM.Level ());                                //Determine vertical position
             Vector2 newPosition = new Vector2(horizontalDisplacement, verticalDisplacement);
 
 			GameObject iPlatform;
-			if (Random.value > 0.9) {
-				iPlatform = Instantiate(rainCloud, newPosition, Quaternion.identity);
+			if (Random.value > 0.9) 
+			{
+				iPlatform = Instantiate(rainCloud, newPosition, Quaternion.identity) as GameObject;
 			} else {
 				iPlatform = Instantiate(platform, newPosition, Quaternion.identity);
 			}

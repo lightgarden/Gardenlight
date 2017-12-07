@@ -10,15 +10,15 @@ public class CloudMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		distance = Random.Range (3, 6);
-		speed = Random.Range(distance/4, 3* distance/4); 
+		distance = Random.Range(3.0f + 1.0f * GameManager.GM.Level (), 6.0f + 2f * GameManager.GM.Level ());
+		speed = Mathf.Sign(Random.Range(-1.0f,1.0f)) * Random.Range (distance / 2, (GameManager.GM.Level () - 1) * distance / 2); 
 		start = transform.position.x;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if (canMove & GameManager.GM.Level () == 1) 
+		if (canMove & GameManager.GM.Level () > 1) 
 		{
 			if (Mathf.Abs (transform.position.x - start) <= distance) {
 				transform.Translate (Vector3.right * speed * Time.deltaTime);
@@ -38,9 +38,11 @@ public class CloudMovement : MonoBehaviour {
 	{
 		
 		if (coll.gameObject.CompareTag ("Player")) 
-		{ 			GameObject player = coll.gameObject;
-			if (canMove)
-				player.transform.Translate (Vector3.right * speed * Time.deltaTime); 		}
+		{
+			GameObject player = coll.gameObject;
+			if (canMove & GameManager.GM.Level () > 1)
+				player.transform.Translate (Vector3.right * speed * Time.deltaTime);
+		}
 	}
 		
 
