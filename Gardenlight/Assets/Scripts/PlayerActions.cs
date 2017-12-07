@@ -1,4 +1,4 @@
-﻿
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +24,7 @@ public class PlayerActions : MonoBehaviour {
 
 	public float plantDistance = 2;
 	public float seedDistance = 1;
+	private bool plantContact;
 
 	public int plantSelected = 1;
 	//1 is beanstalk
@@ -38,21 +39,14 @@ public class PlayerActions : MonoBehaviour {
 		sunTimed = false;
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
+		plantContact = false;
 		//plantDistance = playerHeight/2;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(plantPassed != null && (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance //plant is too far away
-			|| plantPassed.transform.position.x < this.transform.position.x - 0.5)){ //plant is behind player
-            //print("plant is now null");
-            //print(Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x));
-            //print(plantDistance);
-            //if (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance) print("first condition");
-            //if(plantPassed.transform.position.x < this.transform.position.x) print("second condition");
-			plantPassed = null;
-		}
+		checkPassed ();
 
 		if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
 		{
@@ -65,13 +59,13 @@ public class PlayerActions : MonoBehaviour {
 
 		else
 		{
-			if (!player.isMoving && Input.GetKeyDown(KeyCode.P)) //press P to plant seed
+			if (!player.isMoving && Input.GetKeyDown(KeyCode.P)  && player.OnGround () == true) //press P to plant seed
 			{
 				startPlant();
 				currentLocation = this.transform.position;
 			}
 
-			else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null) //press O to water plant
+			else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null && plantContact) //press O to water plant
 			{
 				if (water >= waterLevel) //if water levels are high enough
 				{
@@ -83,12 +77,14 @@ public class PlayerActions : MonoBehaviour {
 				{
 					//display message "Water Levels aren't High Enough" above player head
 					//can add another argument for GUIStyle (background, color, etc.) if needed
-					GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight / 2, 100, 20), "Your water levels are too low!");
+
+
+					//GUI.Label(new Rect(this.transform.position.x, this.transform.position.y + playerHeight / 2, 100, 20), "Your water levels are too low!");
                     print("could not water");
                 }
 			}
 
-			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null) //press U to use sun
+			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null && plantContact) //press U to use sun
 			{
 				startSun();
 				currentLocation = this.transform.position;
@@ -185,15 +181,10 @@ public class PlayerActions : MonoBehaviour {
 	void plantSeed()
 	{
 		//the following instantiates a seed prefab at your feet slightly offset
-		if (this.transform.localScale.x > 0) { //player is facing right
-			Instantiate (plant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
-			plant.GetComponent<PlantType>().setType (plantSelected);
-		}
-		else { //player is facing left
-			Instantiate (plant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
-		
-			plant.GetComponent<PlantType>().setType (plantSelected);
-		}
+		if(player.facingRight) //player is facing right
+			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+		else //player is facing left
+			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
 		//please add animation trigger stuff here
 
 		plantTimed = false;
@@ -230,15 +221,43 @@ public class PlayerActions : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		plantPassed = other.transform;
         print("plant is passed");
+		plantContact = true;
 	}
 
-	/*     void OnTriggerExit2D(Collider2D other){
+	void OnTriggerExit2D(Collider2D other){
         plantPassed = null;
-    } */
+		plantContact = false;
+    }
 
 	public void incrementWater(float value)
 	{
 		water = Mathf.Min (100, water + value);
+	}
+
+	void checkPassed() {
+		float temp = plantDistance;
+		 
+		if (plantPassed != null) {
+			float plantx = plantPassed.transform.position.x;
+			if (player.facingRight &&  plantx < this.transform.position.x) {
+				plantContact = false;
+			} else if (!player.facingRight && plantx > this.transform.position.x) {
+				plantContact = false;
+			} else {
+				plantContact = true;
+			}
+
+
+		}
+//		if(plantPassed != null && (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance //plant is too far away
+//			|| plantPassed.transform.position.x < this.transform.position.x - 0.5)){ //plant is behind player
+//			//print("plant is now null");
+//			//print(Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x));
+//			//print(plantDistance);
+//			//if (Mathf.Abs(plantPassed.transform.position.x - this.transform.position.x) > plantDistance) print("first condition");
+//			//if(plantPassed.transform.position.x < this.transform.position.x) print("second condition");
+//			plantPassed = null;
+//		}
 	}
 
 }
