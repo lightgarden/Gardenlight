@@ -62,14 +62,17 @@ public class SpawnPlant : MonoBehaviour {
 		Vector3 location = transform.position;
 		Debug.Log (location.ToString ("F3"));
 		//Vector2 size_x = transform.localScale.x;
+		float height = stalk.GetComponent <SpriteRenderer>().bounds.size.y;
+		float size = Random.Range (0.5f, 0.75f);
+		Debug.Log (height * size);
 
 		//seting the scale of the stalk
 		//stalk.transform.localScale = new Vector2(transform.localScale.x, Mathf.Abs(leafLocation1.y)+4.0f*Mathf.Abs(leafScale.y));
-		stalk.transform.localScale = new Vector3(transform.localScale.x, Random.Range(4.0f,4.5f), 1);
+		stalk.transform.localScale = new Vector3(transform.localScale.x, size, 1);
 
-		Vector2 stalkScale = stalk.transform.localScale;
+		//Vector2 stalkScale = stalk.transform.localScale;
 		//setting the location of the stalk (the same as the seed/plant)
-		stalk.transform.position = new Vector2(location.x, location.y);
+		stalk.transform.position = new Vector2(location.x, location.y + height * size / 2);
 //		//for debug
 
 		Vector3 stalkPosition = stalk.transform.position;	
@@ -82,7 +85,8 @@ public class SpawnPlant : MonoBehaviour {
 
 		var leafScale = new Vector2 (Random.Range(0.5f,1.0f), Random.Range(0.5f,0.75f));
 		var leafLocation1 =
-			new Vector2 (stalkPosition.x-2f*leafScale.x, stalkPosition.y+stalkScale.y-2f*leafScale.y-1f);
+			new Vector2 (stalkPosition.x-2f*leafScale.x, stalkPosition.y+ height*size - leafScale.y);
+		print (stalk.GetComponent <SpriteRenderer> ().bounds.size.y);
 		//add the first leaf
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[0].transform.position = leafLocation1;
@@ -92,7 +96,7 @@ public class SpawnPlant : MonoBehaviour {
 
 		//add the second leaf
 		var leafLocation2 =
-			new Vector3 (location.x+2f*leafScale.x, stalkPosition.y+stalkScale.y-2f*leafScale.y-1f);
+			new Vector3 (location.x+2f*leafScale.x, stalkPosition.y+height*size  - leafScale.y);
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[1].transform.position = leafLocation2;
 		var leftScale = new Vector2((-1.0f)*leafScale.x, leafScale.y);
