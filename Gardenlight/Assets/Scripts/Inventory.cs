@@ -76,11 +76,11 @@ public class Inventory : MonoBehaviour
         currentSeedID = playerActions.plantSelected;
         if (currentSeedID == 1)
         {
-            panel.transform.localPosition = image1.transform.localPosition - new Vector3(10, 10, 0);
+			panel.transform.localPosition = image1.transform.localPosition; // - new Vector3(10, 10, 0);
         }
         else
         {
-            panel.transform.localPosition = image2.transform.localPosition - new Vector3(10, 10, 0);
+			panel.transform.localPosition = image2.transform.localPosition; // - new Vector3(10, 10, 0);
         }
     }
 
