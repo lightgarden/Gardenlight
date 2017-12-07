@@ -23,6 +23,7 @@ public class Seed
     public void Decrement()
     {
         count -= 1;
+		Debug.Log (count);
     }
 
     public string DataString()

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerActions : MonoBehaviour {
 	public float water = 100;
 	public PlayerController player;
-	public Transform plant;
+	public GameObject plant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
     public GameObject inventoryCanvas;
@@ -44,7 +44,7 @@ public class PlayerActions : MonoBehaviour {
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
 		anim = GetComponent<Animator> ();
-		waterText.text = "Water level: " + waterLevel.ToString();
+		waterText.text = "Water level: " + water.ToString();
 		plantContact = false;
         //plantDistance = playerHeight/2;
         //inventoryCanvas = GameObject.Find("InventoryCanvas"); I don't think this line is necessary since I declared it at the beginning of the class and it looks like we can drag it in, but the forums say to have this, so idk
@@ -108,6 +108,8 @@ public class PlayerActions : MonoBehaviour {
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
 		}
+
+		waterText.text = "Water level: " + water.ToString();
 
 	}
 
@@ -175,11 +177,18 @@ public class PlayerActions : MonoBehaviour {
 
 	void plantSeed()
 	{
+		GameObject seed;
+		Vector3 current = this.transform.position;
 		//the following instantiates a seed prefab at your feet slightly offset
 		if(player.facingRight) //player is facing right
-			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			current =  new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f);
 		else //player is facing left
-			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			current =  new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f);
+		
+		seed = Instantiate(plant);
+		seed.transform.position = current;
+		seed.GetComponent<PlantType> ().setType (inventoryCanvas.GetComponent<Inventory> ().currentSeedID);
+		Debug.Log (inventoryCanvas.GetComponent<Inventory> ().currentSeedID);
 
 		//please add animation trigger stuff here
 
