@@ -15,6 +15,9 @@ public class PlantType : MonoBehaviour {
 	{
 		return plantType;
 	}
+
+	//0 is beansprout
+	//1 is other plant
 		
 
 
