@@ -412,11 +412,7 @@ Prefab:
     - target: {fileID: 114909915749524196, guid: d8221be4acf4e4efd99f8294f08cd6bf,
         type: 2}
       propertyPath: jumpForce
-<<<<<<< HEAD
-      value: 1000
-=======
       value: 500
->>>>>>> 46f40ecb0bde7aead6c68ea35a475be4cfa0e5fb
       objectReference: {fileID: 0}
     - target: {fileID: 114033832480174440, guid: d8221be4acf4e4efd99f8294f08cd6bf,
         type: 2}
@@ -1356,8 +1352,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1001 &2071756811
 Prefab:
   m_ObjectHideFlags: 0
@@ -1400,7 +1394,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
   m_IsPrefabParent: 0
->>>>>>> 46f40ecb0bde7aead6c68ea35a475be4cfa0e5fb
 --- !u!1001 &2137821409
 Prefab:
   m_ObjectHideFlags: 0
