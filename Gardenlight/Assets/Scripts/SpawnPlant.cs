@@ -117,7 +117,7 @@ public class SpawnPlant : MonoBehaviour {
 	void growPlantBeanStalk()
 	{
 		//Plant height
-		int counter = Random.Range (60, 80);
+		int counter = Random.Range (30, 40);
 
 		//Chace a leaf will spawn
 		int leafSpawnRate = 5;
@@ -161,7 +161,7 @@ public class SpawnPlant : MonoBehaviour {
 			stalk.transform.position = new Vector2 (stalk.transform.position.x, stalk.transform.position.y + 0.125f);
 			if (Random.Range (1, 100) <= leafSpawnRate) 
 			{
-				leafSpawnRate = -60;
+				leafSpawnRate = -70;
 				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 2);
 				leaf = Instantiate (leaf, leafPos, Quaternion.identity) as GameObject;
 				if (leaf.transform.position.x > stalk.transform.position.x)

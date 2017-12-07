@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class PlayerActions : MonoBehaviour {
 	public float water = 100;
 	public PlayerController player;
-	public GameObject plant;
+	public Transform plant;
+	public Transform BeanSproutPlant;
+	//public GameObject plant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
     public GameObject inventoryCanvas;
@@ -101,9 +103,9 @@ public class PlayerActions : MonoBehaviour {
 			else if (Input.GetKeyDown(KeyCode.Y))
 			{
 				plantSelected++;
-				if (plantSelected >= 3) 
+				if (plantSelected >= 2) 
 				{
-					plantSelected = 1;
+					plantSelected = 0;
 				}
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
@@ -180,16 +182,20 @@ public class PlayerActions : MonoBehaviour {
 		GameObject seed;
 		Vector3 current = this.transform.position;
 		//the following instantiates a seed prefab at your feet slightly offset
-		if(player.facingRight) //player is facing right
-			current =  new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f);
-		else //player is facing left
-			current =  new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f);
-		
-		seed = Instantiate(plant);
-		seed.transform.position = current;
-		seed.GetComponent<PlantType> ().setType (inventoryCanvas.GetComponent<Inventory> ().currentSeedID);
-		Debug.Log (inventoryCanvas.GetComponent<Inventory> ().currentSeedID);
-
+		if (player.facingRight) 
+		{ //player is facing right
+			if (plantSelected == 1)
+				Instantiate (plant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			else 
+				Instantiate (BeanSproutPlant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+		} 
+		else 
+		{//player is facing left
+			if (plantSelected == 1)
+				Instantiate (plant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			else
+				Instantiate (BeanSproutPlant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+		}
 		//please add animation trigger stuff here
 
 		plantTimed = false;
