@@ -18,22 +18,25 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] lvl2BGs;
 	public GameObject[] lvl3BGs;
 	public GameObject[] lvl4BGs;
+	private GameObject[] lvl;
+	private bool isLastTile;
+	private Vector3 highestPoint;
 	//public BackgroundManager bg;
 
-	private GameObject prevLevel;
-	private GameObject curLevel;
-	private GameObject nextLevel;
+	private GameObject prevTile;
+	private GameObject curTile;
+	private GameObject nextTile;
 
 	public GameObject player;
-
-	public GameObject winText;
-	public GameObject loseText;
 
 
 
 	// Use this for initialization
 	void Awake () {
 		GM = this;
+		lvl = lvl1BGs;
+		isLastTile = true;
+
 		/*bg = GameObject.Find("Background Manager").GetComponent<BackgroundManager>();
 		foreach (GameObject bg in lvl2BGs)
 		{
@@ -52,22 +55,31 @@ public class GameManager : MonoBehaviour {
 		//loseText.SetActive (false);
 	}
 
-	/*void Start()
+	void Start()
 	{
-		float height = lvl1BGs[0].GetComponent<SpriteRenderer>().bounds.size.y;
-		Vector3 position = new Vector3(0, lvl1BGs[0].transform.position.y, 20);
-		bg.SetUpBackgrounds(lvl1BGs[0], lvl1BGs[1], lvl1BGs[2], position);
-	}*/
+		curTile = GameObject.FindGameObjectWithTag ("BG");
+		highestPoint = curTile.GetComponent<SpriteRenderer> ().bounds.max;
+		Debug.Log (curTile.GetComponent<SpriteRenderer> ());
+//		float height = lvl1BGs[0].GetComponent<SpriteRenderer>().bounds.size.y;
+//		Vector3 position = new Vector3(0, lvl1BGs[0].transform.position.y, 20);
+//		bg.SetUpBackgrounds(lvl1BGs[0], lvl1BGs[1], lvl1BGs[2], position);
+	}
 
 	// Update is called once per frame
 	void Update () {
-		/*curHeight = player.transform.position.y;
-		if ((curHeight > 0) && (curHeight % 90 > 80) && nextLevel == null) {
+		curHeight = player.transform.position.y;
+		/*if ((curHeight > 0) && (curHeight % 90 > 80) && nextLevel == null) {
 			transitionLevel ();
 		}
 		if (curHeight > level * levelHeight) {
 			changeLevel ();
 		}*/
+		if (curHeight > highestPoint.y - 15 && nextTile == null) {
+			addTile ();
+		}
+		if (curHeight > curTile.GetComponent<SpriteRenderer> ().bounds.max.y) {
+			changeTile ();
+		}
 	}
 
 	public void transitionLevel() {
@@ -117,11 +129,46 @@ public class GameManager : MonoBehaviour {
 		nextLevel.transform.position = new Vector3 (0, levelHeight * (level + 0.5f), 1);*/
 	}
 
+	void addTile() {
+		Debug.Log (level + ", " + curHeight + ", " + (levelHeight * (level + 1) - 15));
+		if (!isLastTile) {
+			if (curHeight >= levelHeight * (level + 1) - 75) { // Checks whether to spawn last tile
+				nextTile = Instantiate(lvl [2]);
+				isLastTile = true;
+			} else {
+				nextTile = Instantiate (lvl[1]);
+				isLastTile = false;
+			}
+		} else {
+			changeLevel ();
+			if (level >= 4) {
+				lvl = lvl4BGs;
+			} else if (level == 3) {
+				lvl = lvl3BGs;
+			} else {
+				lvl = lvl2BGs;
+			}
+			nextTile = Instantiate (lvl[0]);
+			isLastTile = false;
+		}
+
+		float tileHalfHeight = nextTile.GetComponent<SpriteRenderer> ().bounds.extents.y;
+		nextTile.transform.position = new Vector3 (0, highestPoint.y + tileHalfHeight, 1);
+		highestPoint = nextTile.GetComponent<SpriteRenderer> ().bounds.max;
+	}
+
+	void changeTile() {
+		Destroy (prevTile);
+
+		prevTile = curTile;
+		curTile = nextTile;
+		nextTile = null;
+
+	}
+
 	void changeLevel() {
-		prevLevel = curLevel;
-		curLevel = nextLevel;
 		level++;
-		nextLevel = null;
+
 
 	}
 
@@ -130,7 +177,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public GameObject currentLevel() {
-		return curLevel;
+		return curTile;
 	}
 
 	public void Win () {
