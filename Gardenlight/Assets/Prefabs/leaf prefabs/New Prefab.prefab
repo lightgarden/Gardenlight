@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 251785588849660380}
   - component: {fileID: 95055611371517812}
   m_Layer: 0
-  m_Name: sprout2
+  m_Name: New Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

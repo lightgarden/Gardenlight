@@ -55,7 +55,7 @@ public class SpawnPlatform : MonoBehaviour
             Vector2 newPosition = new Vector2(horizontalDisplacement, verticalDisplacement);
 
 			GameObject iPlatform;
-			if (Random.value > 0.1) 
+			if (Random.value > 0.9) 
 			{
 				iPlatform = Instantiate(rainCloud, newPosition, Quaternion.identity) as GameObject;
 			} else {
