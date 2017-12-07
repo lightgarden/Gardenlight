@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114181645123752084}
   - component: {fileID: 212119241314857142}
   m_Layer: 0
-  m_Name: plant
+  m_Name: Plant
   m_TagString: plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   MushroomTop: {fileID: 1348382527391786, guid: 7dce8610bfa974d15bbe534053bd4dc0,
     type: 2}
   water_status: 0
+  anim: {fileID: 0}
 --- !u!212 &212119241314857142
 SpriteRenderer:
   m_ObjectHideFlags: 1
