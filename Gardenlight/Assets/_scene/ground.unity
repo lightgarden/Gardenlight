@@ -144,7 +144,7 @@ MonoBehaviour:
   curHeight: 0
   startPos: {x: 0, y: 0, z: 0}
   lvl1BGs:
-  - {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
+  - {fileID: 1385299720}
   lvl2BGs:
   - {fileID: 1005985907535724, guid: 9779271de240c49fe9af1aeb00443dde, type: 2}
   - {fileID: 1477635016415986, guid: 5ed4ad583cfa647c793df17ab7bf3f40, type: 2}
@@ -682,7 +682,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 686602248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 240, y: 194, z: 0}
+  m_LocalPosition: {x: 240, y: 193.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 613135093}
@@ -692,10 +692,10 @@ RectTransform:
   m_Father: {fileID: 1871731533}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 240, y: 194}
-  m_SizeDelta: {x: 221.54, y: 46.67}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -127, y: -36}
+  m_SizeDelta: {x: 221.53998, y: 46.669983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &686602250
 MonoBehaviour:
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813857441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -857,6 +857,10 @@ Prefab:
     - target: {fileID: 4821684729632902, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
+      propertyPath: m_TagString
+      value: BG
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
@@ -1156,7 +1160,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1333394234}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1251,6 +1255,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1385299720 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837,
+    type: 2}
+  m_PrefabInternal: {fileID: 879152236}
 --- !u!1 &1430045834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1465,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1758290731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100.77, y: 0, z: 0}
+  m_LocalPosition: {x: 100.76999, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 298038553}
@@ -1807,8 +1816,8 @@ MonoBehaviour:
   waterLevel: 10
   waterBar: {fileID: 686602250}
   waterText: {fileID: 118587576}
-  plantDistance: 1
-  seedDistance: 0.5
+  plantDistance: 4
+  seedDistance: 1
   plantSelected: 1
 --- !u!114 &1958147717
 MonoBehaviour:

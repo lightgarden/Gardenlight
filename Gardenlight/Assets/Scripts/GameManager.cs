@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour {
 		GM = this;
 		lvl = lvl1BGs;
 		isLastTile = true;
-		curTile = GameObject.Find ("Background");
-		highestPoint = curTile.GetComponent<SpriteRenderer> ().bounds.max;
+
 		/*bg = GameObject.Find("Background Manager").GetComponent<BackgroundManager>();
 		foreach (GameObject bg in lvl2BGs)
 		{
@@ -56,12 +55,15 @@ public class GameManager : MonoBehaviour {
 		//loseText.SetActive (false);
 	}
 
-	/*void Start()
+	void Start()
 	{
-		float height = lvl1BGs[0].GetComponent<SpriteRenderer>().bounds.size.y;
-		Vector3 position = new Vector3(0, lvl1BGs[0].transform.position.y, 20);
-		bg.SetUpBackgrounds(lvl1BGs[0], lvl1BGs[1], lvl1BGs[2], position);
-	}*/
+		curTile = GameObject.FindGameObjectWithTag ("BG");
+		highestPoint = curTile.GetComponent<SpriteRenderer> ().bounds.max;
+		Debug.Log (curTile.GetComponent<SpriteRenderer> ());
+//		float height = lvl1BGs[0].GetComponent<SpriteRenderer>().bounds.size.y;
+//		Vector3 position = new Vector3(0, lvl1BGs[0].transform.position.y, 20);
+//		bg.SetUpBackgrounds(lvl1BGs[0], lvl1BGs[1], lvl1BGs[2], position);
+	}
 
 	// Update is called once per frame
 	void Update () {
