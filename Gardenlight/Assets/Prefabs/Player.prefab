@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114921218504988224}
   - component: {fileID: 95542725363331954}
   - component: {fileID: 114033832480174440}
+  - component: {fileID: 114909915749524196}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -146,7 +147,7 @@ MonoBehaviour:
   player: {fileID: 114921218504988224}
 --- !u!114 &114909915749524196
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113495655750864}
@@ -177,6 +178,7 @@ MonoBehaviour:
   player: {fileID: 0}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
   plantPassed: {fileID: 0}
+  anim: {fileID: 0}
   plantTimed: 0
   waterTimed: 0
   sunTimed: 0
@@ -199,6 +201,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -214,6 +217,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

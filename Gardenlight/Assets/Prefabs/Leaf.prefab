@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 61504086312125816}
   - component: {fileID: 212597710877430258}
   - component: {fileID: 251035717433366162}
+  - component: {fileID: 95033785287482056}
   m_Layer: 0
   m_Name: Leaf
   m_TagString: Untagged
@@ -67,6 +68,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.7395205, y: 1.1841698}
   m_EdgeRadius: 0
+--- !u!95 &95033785287482056
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1763491771369092}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 687b91c2a09a7d14aae03407ab203d6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!212 &212597710877430258
 SpriteRenderer:
   m_ObjectHideFlags: 1

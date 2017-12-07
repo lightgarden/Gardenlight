@@ -14,6 +14,7 @@ public class SpawnPlant : MonoBehaviour {
 	bool grow_status = false;
 	List<GameObject> leafObjects;
 	public bool water_status = false;
+	public Animator anim;
 
 
 
@@ -21,7 +22,7 @@ public class SpawnPlant : MonoBehaviour {
 	void Start () 
 	{
 		plantType = GetComponent<PlantType> ().getPlantType ();
-
+		anim = GetComponent<Animator> ();
 	}
 
 	// Update is called once per frame
