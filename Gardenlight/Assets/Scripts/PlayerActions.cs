@@ -8,6 +8,7 @@ public class PlayerActions : MonoBehaviour {
 	public float water = 100;
 	public PlayerController player;
 	public Transform plant;
+	public Transform BeanSproutPlant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
     public GameObject inventoryCanvas;
@@ -101,9 +102,9 @@ public class PlayerActions : MonoBehaviour {
 			else if (Input.GetKeyDown(KeyCode.Y))
 			{
 				plantSelected++;
-				if (plantSelected >= 3) 
+				if (plantSelected >= 2) 
 				{
-					plantSelected = 1;
+					plantSelected = 0;
 				}
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
@@ -176,11 +177,20 @@ public class PlayerActions : MonoBehaviour {
 	void plantSeed()
 	{
 		//the following instantiates a seed prefab at your feet slightly offset
-		if(player.facingRight) //player is facing right
-			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
-		else //player is facing left
-			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
-
+		if (player.facingRight) 
+		{ //player is facing right
+			if (plantSelected == 1)
+				Instantiate (plant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			else 
+				Instantiate (BeanSproutPlant, new Vector3 (this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+		} 
+		else 
+		{//player is facing left
+			if (plantSelected == 1)
+				Instantiate (plant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+			else
+				Instantiate (BeanSproutPlant, new Vector3 (this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
+		}
 		//please add animation trigger stuff here
 
 		plantTimed = false;
