@@ -29,8 +29,8 @@ public class PlayerActions : MonoBehaviour {
 	public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
 	public Slider waterBar;
 	public Text waterText;
-	public float plantDistance = 2;
-	public float seedDistance = 1;
+	public float plantDistance = 4;
+	public float seedDistance = 3;
 	private bool plantContact;
 
 	public int plantSelected = 1;

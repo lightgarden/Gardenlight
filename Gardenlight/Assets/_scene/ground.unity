@@ -144,7 +144,7 @@ MonoBehaviour:
   curHeight: 0
   startPos: {x: 0, y: 0, z: 0}
   lvl1BGs:
-  - {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
+  - {fileID: 1385299720}
   lvl2BGs:
   - {fileID: 1005985907535724, guid: 9779271de240c49fe9af1aeb00443dde, type: 2}
   - {fileID: 1477635016415986, guid: 5ed4ad583cfa647c793df17ab7bf3f40, type: 2}
@@ -858,6 +858,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
+      propertyPath: m_TagString
+      value: BG
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cddc04bfecac4543bfb758c5de14837, type: 2}
   m_IsPrefabParent: 0
@@ -1251,6 +1255,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1385299720 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1009292711509628, guid: 2cddc04bfecac4543bfb758c5de14837,
+    type: 2}
+  m_PrefabInternal: {fileID: 879152236}
 --- !u!1 &1430045834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,8 +1816,8 @@ MonoBehaviour:
   waterLevel: 10
   waterBar: {fileID: 686602250}
   waterText: {fileID: 118587576}
-  plantDistance: 1
-  seedDistance: 0.5
+  plantDistance: 4
+  seedDistance: 1
   plantSelected: 1
 --- !u!114 &1958147717
 MonoBehaviour:
