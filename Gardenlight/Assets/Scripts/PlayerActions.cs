@@ -195,17 +195,17 @@ public class PlayerActions : MonoBehaviour {
 			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
 
 
-        //replace this block with real values esp here
-        GameObject inventoryUI = GameObject.Find("InventoryImage"); //replace with real one later
-        Inventory inventory = inventoryUI.GetComponent<Inventory>();
-        if (selectedPlant == 1)
-        {
-            inventory.seed1.Decrement();
-        }
-        else if (selectedPlant == 2)
-        {
-            inventory.seed2.Decrement();
-        }
+//        //replace this block with real values esp here
+//        GameObject inventoryUI = GameObject.Find("InventoryImage"); //replace with real one later
+//        Inventory inventory = inventoryUI.GetComponent<Inventory>();
+//        if (selectedPlant == 1)
+//        {
+//            inventory.seed1.Decrement();
+//        }
+//        else if (selectedPlant == 2)
+//        {
+//            inventory.seed2.Decrement();
+//        }
 		//please add animation trigger stuff here
 
 		plantTimed = false;
