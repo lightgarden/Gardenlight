@@ -25,11 +25,11 @@ public class Seed
         count -= 1;
     }
 
-    public string DataString()
-    {
-        string dispString = name + " x" + count.ToString();
-        return dispString;
-    }
+//    public string DataString()
+//    {
+//        string dispString = name + " x" + count.ToString();
+//        return dispString;
+//    }
 }
 
 //pull data from player actions about which seed is the active one [framework done]
@@ -59,15 +59,15 @@ public class Inventory : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        DispNameCount(nameCount1, seed1);
-        DispNameCount(nameCount2, seed2);
+//        DispNameCount(nameCount1, seed1);
+//        DispNameCount(nameCount2, seed2);
         MoveHighlight(highlightPanel);
 	}
 
-    void DispNameCount(Text nameCount, Seed seed) //Displays the name and count in the label
-    {
-        nameCount.text = seed.DataString();
-    }
+//    void DispNameCount(Text nameCount, Seed seed) //Displays the name and count in the label
+//    {
+//        nameCount.text = seed.DataString();
+//    }
 
     void MoveHighlight(GameObject panel) //This moves the highlight panel to the correct position
     {
