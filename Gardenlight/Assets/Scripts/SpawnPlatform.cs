@@ -20,7 +20,7 @@ public class SpawnPlatform : MonoBehaviour
     public float verticalMin = 3f;          //verticalMin and verticalMax determine the maximum vertical displacement from current platforms that the new platforms will be spwaned at
     public float verticalMax = 10f;
     public float movespeed = 3f;            //Determines how fast the platforms will wiggle
-    public int maxPlatforms = 10;
+    public int maxPlatforms = 20;
     public int onScreenPlatforms = 2;
     private Queue<GameObject> platformQueue;
     //camera fov is 10 units tall
@@ -55,7 +55,14 @@ public class SpawnPlatform : MonoBehaviour
             Vector2 newPosition = new Vector2(horizontalDisplacement, verticalDisplacement);
 
 			GameObject iPlatform;
-			if (Random.value > 0.9) 
+			float ratio = .9f;
+			if (GameManager.GM.Level () == 2) {
+				ratio = 0.8f;
+			} else if (GameManager.GM.Level() == 3) {
+				ratio = 0.7f;
+			}
+
+			if (Random.value > ratio) 
 			{
 				iPlatform = Instantiate(rainCloud, newPosition, Quaternion.identity) as GameObject;
 			} else {
@@ -90,7 +97,7 @@ public class SpawnPlatform : MonoBehaviour
         //Remove platforms below max distance
 		        float playerHeight = player.transform.position.y;
         float platformHeight = platformQueue.Peek().transform.position.y;
-        if (playerHeight - platformHeight >= 10)
+        if (playerHeight - platformHeight >= 40)
         {
             DestroyPlatform();
             CreatePlatform();

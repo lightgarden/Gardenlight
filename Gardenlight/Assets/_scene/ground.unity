@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenEdgeBuffer: 0.3
-  safeCloudDistance: 10
+  safeCloudDistance: 40
   smoothTime: 0.3
   safeCloud: {fileID: 1928872225}
 --- !u!82 &1240628393
@@ -1613,6 +1613,7 @@ GameObject:
   - component: {fileID: 1928872229}
   - component: {fileID: 1928872227}
   - component: {fileID: 1928872226}
+  - component: {fileID: 1928872228}
   m_Layer: 0
   m_Name: Safety
   m_TagString: Untagged
@@ -1663,7 +1664,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1679,6 +1680,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1928872228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1928872225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7713d8b4b56194d1cafe9c5db88638dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1928872229
 Transform:
   m_ObjectHideFlags: 0
@@ -1730,7 +1742,7 @@ MonoBehaviour:
   verticalMin: 4
   verticalMax: 5
   movespeed: 3
-  maxPlatforms: 10
+  maxPlatforms: 20
   onScreenPlatforms: 2
 --- !u!4 &1934001343
 Transform:
@@ -1805,6 +1817,16 @@ MonoBehaviour:
     type: 2}
   plantPassed: {fileID: 0}
   inventoryCanvas: {fileID: 1600987297}
+  sproutSeeds:
+  - {fileID: 1763491771369092, guid: 3c0a7980811484465a6e7737eddd10a4, type: 2}
+  - {fileID: 1094811134088256, guid: 77e308997298c694c81234c76a663e93, type: 2}
+  - {fileID: 1957684221472880, guid: 7abafa1b4b4dc1f47a1738ca027c228a, type: 2}
+  - {fileID: 1381433941049032, guid: 84f19afb707c11647b620c1e935514fe, type: 2}
+  tallSeets:
+  - {fileID: 1381433941049032, guid: 84f19afb707c11647b620c1e935514fe, type: 2}
+  - {fileID: 1344178401973438, guid: 3c3da22054419f14a9f38f504fd08924, type: 2}
+  - {fileID: 1533355125994104, guid: 466fc67492ae3824396c01322339af4e, type: 2}
+  - {fileID: 1763491771369092, guid: 3c0a7980811484465a6e7737eddd10a4, type: 2}
   anim: {fileID: 0}
   plantTimed: 0
   waterTimed: 0
@@ -1889,7 +1911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 6
-  jumpForce: 500
+  jumpForce: 400
   canMove: 1
   isMoving: 0
   jumped: 0
