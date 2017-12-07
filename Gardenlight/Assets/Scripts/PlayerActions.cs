@@ -47,7 +47,9 @@ public class PlayerActions : MonoBehaviour {
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
 		anim = GetComponent<Animator> ();
+
 		waterText.text = "Water level: " + water.ToString();
+
 		plantContact = false;
         //plantDistance = playerHeight/2;
         //inventoryCanvas = GameObject.Find("InventoryCanvas"); I don't think this line is necessary since I declared it at the beginning of the class and it looks like we can drag it in, but the forums say to have this, so idk

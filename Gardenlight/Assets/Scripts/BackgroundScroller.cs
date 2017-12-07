@@ -4,89 +4,45 @@ using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour {
 
-    public bool tile = true; //tesselate?
-    public float bgScrollSpeed = 1f; //relative to camera speed
-    public GameObject background;
-
-    private float backgroundHeight;
-    private GameObject[] tesselate;
-    private float camOrthSize;
+    public float bgScrollSpeed = 0f; //relative to camera speed
+    public GameObject[] backgrounds;
+    public GameObject scaleReference;
     private Vector3 cameraVelocity;
-    private Transform cameraTransform;
-    private int bottom;
-    private int top;
 
     void Start ()
     {
-        backgroundHeight = background.GetComponent<SpriteRenderer>().bounds.size.y;
-        cameraTransform = transform;
-        camOrthSize = GetComponent<Camera>().orthographicSize;
         cameraVelocity = Vector3.zero;
+        foreach (GameObject bg in backgrounds)
+          newScale(bg);
 
-        //initialize tiles to tesselate
-        if (tile)
+        backgrounds[0].transform.position =
+            new Vector3 (0, backgrounds[0].transform.position.y, 20);
+        float oldHeight = backgrounds[0].GetComponent<SpriteRenderer>().bounds.size.y;
+        float curHeight;
+        for (int i = 1; i < backgrounds.Length; i++)
         {
-            tesselate = new GameObject[(int)Mathf.Ceil((2 * camOrthSize + backgroundHeight) / backgroundHeight)];
-            bottom = 0;
-            top = tesselate.Length - 1;
-            for (int i = 0; i < tesselate.Length; i++)
-            {
-                Vector3 position = new Vector3(cameraTransform.position.x,
-                                               cameraTransform.position.y - camOrthSize
-                                                + i * backgroundHeight + backgroundHeight / 2,
-                                               cameraTransform.position.z + 20);
-                GameObject unit = Object.Instantiate(background, position, Quaternion.identity);
-                unit.name = "Tile " + i.ToString();
-                tesselate[i] = unit;
-            }
-            background.SetActive(false);
+            curHeight = backgrounds[i].GetComponent<SpriteRenderer>().bounds.size.y;
+            float vert = backgrounds[i-1].transform.position.y;
+            vert += oldHeight/2 + curHeight/2;
+            backgrounds[i].transform.position = new Vector3 (0, vert, 20);
+            oldHeight = curHeight;
         }
     }
 
     void Update()
     {
-        cameraVelocity = GetComponent<CameraController>().GetCameraVelocity();
-
-        //transform array of tiles and tesselate up or down accordingly
-        if (tile)
-        {
-            foreach (GameObject unit in tesselate)
-            {
-                unit.transform.position += cameraVelocity * bgScrollSpeed * Time.deltaTime;
-            }
-
-            if (cameraTransform.position.y - camOrthSize < (tesselate[bottom].transform.position.y - backgroundHeight / 2))
-            {
-                TesselateDown();
-            }
-
-            if (cameraTransform.position.y + camOrthSize > (tesselate[top].transform.position.y + backgroundHeight / 2))
-            {
-                TesselateUp();
-            }
-        }
-        else
-        {
-            background.transform.position += cameraVelocity * bgScrollSpeed * Time.deltaTime;
-        }
+        cameraVelocity = GameObject.Find("Main Camera").GetComponent<CameraController>().GetCameraVelocity();
+        foreach (GameObject bg in backgrounds)
+            bg.transform.position += cameraVelocity * bgScrollSpeed * Time.deltaTime;
     }
 
-    private void TesselateUp()
+    public void newScale(GameObject obj)
     {
-        tesselate[bottom].transform.position = Vector3.up *
-            (tesselate[top].transform.position.y + backgroundHeight);
-        top = bottom;
-        bottom++;
-        if (bottom == tesselate.Length) bottom = 0;
-    }
-
-    private void TesselateDown()
-    {
-        tesselate[top].transform.position = Vector3.up *
-            (tesselate[bottom].transform.position.y - backgroundHeight);
-        bottom = top;
-        top--;
-        if (top < 0) top = tesselate.Length - 1;
+        float reference = scaleReference.GetComponent<SpriteRenderer>().bounds.size.x;
+        float size = obj.GetComponent<SpriteRenderer> ().bounds.size.x;
+        Vector3 rescale = obj.transform.localScale;
+        rescale.x = reference * rescale.x / size;
+        obj.transform.localScale = rescale;
     }
 
 }
