@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -80,11 +81,11 @@ public class GameManager : MonoBehaviour {
 		return curLevel;
 	}
 
-	void Win () {
-		//winText.SetActive (true);
+	public void Win () {
+		SceneManager.LoadScene("Assets/_scene/win.unity");
 	}
 
-	void Loose() {
-		//loseText.SetActive (true);
+	public void Lose() {
+		SceneManager.LoadScene("Assets/_scene/lose.unity");
 	}
 }

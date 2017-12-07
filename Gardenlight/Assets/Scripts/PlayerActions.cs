@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerActions : MonoBehaviour {
 	public float water = 100;
@@ -9,6 +10,8 @@ public class PlayerActions : MonoBehaviour {
 	public Transform plant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
+
+	public Animator anim;
 
 	public bool plantTimed;
 	public bool waterTimed;
@@ -21,10 +24,11 @@ public class PlayerActions : MonoBehaviour {
 
 	public float playerHeight = 1; //this should be changed based on height of player avatar
 	public int waterLevel = 10; //this is an arbitrary minimum water level to water plants; change as needed
-
+	public Text waterText;
 	public float plantDistance = 2;
 	public float seedDistance = 1;
 	private bool plantContact;
+    public int selectedPlant = 1; //replace by the real one
 
 	public int plantSelected = 1;
 	//1 is beanstalk
@@ -39,6 +43,8 @@ public class PlayerActions : MonoBehaviour {
 		sunTimed = false;
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
+		anim = GetComponent<Animator> ();
+		waterText.text = "Water level: " + waterLevel.ToString();
 		plantContact = false;
 		//plantDistance = playerHeight/2;
 	}
@@ -48,13 +54,11 @@ public class PlayerActions : MonoBehaviour {
 	{
 		checkPassed ();
 
-		if (!player.isMoving && (plantTimed || waterTimed || sunTimed))
+		if (!player.isMoving && (plantTimed || waterTimed))
 		{
-			if (plantTimed) StartCoroutine(planting());
+			if (plantTimed)
+				StartCoroutine (planting ());
 
-			else if (waterTimed) StartCoroutine(watering());
-
-			else if (sunTimed) StartCoroutine(sunning());
 		}
 
 		else
@@ -70,6 +74,7 @@ public class PlayerActions : MonoBehaviour {
 				if (water >= waterLevel) //if water levels are high enough
 				{
 					startWater();
+					startSun();
 					currentLocation = this.transform.position;
 				}
 
@@ -83,12 +88,6 @@ public class PlayerActions : MonoBehaviour {
                     print("could not water");
                 }
 			}
-
-			else if (!player.isMoving && Input.GetKeyDown(KeyCode.U) && plantPassed != null && plantContact) //press U to use sun
-			{
-				startSun();
-				currentLocation = this.transform.position;
-			}
 			else if (Input.GetKeyDown(KeyCode.Y))
 			{
 				plantSelected++;
@@ -99,6 +98,11 @@ public class PlayerActions : MonoBehaviour {
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
 		}
+
+        if (Input.GetKeyDown("e"))  //replace with real one
+        {
+            switchPlant(selectedPlant);
+        }
 
 	}
 
@@ -115,40 +119,22 @@ public class PlayerActions : MonoBehaviour {
 		}
 		yield return new WaitForSeconds(0);  //does nothing but yield a return value
 	}
-
-	IEnumerator sunning()
-	{
-
-		while (sunTimed)
-		{
-			//Debug.Log(timer);
-
-			if (timer > 0) timer -= Time.deltaTime;
-
-			else
-			{
-				sunPower();
-			}
-		}
-		yield return new WaitForSeconds(0);
-
-	}
+		
 
 	IEnumerator watering()
 	{
+		Debug.Log ("Start watering");
+		yield return new WaitForSeconds(timer);
 
-		while (waterTimed)
-		{
-			//Debug.Log(timer);
+		Debug.Log ("Plant!");
+		waterPlant();
+		sunPower();
 
-			if (timer > 0) timer -= Time.deltaTime;
 
-			else
-			{
-				waterPlant();
-			}
-		}
-		yield return new WaitForSeconds(0);
+
+
+		//yield return new WaitForSecondsRealtime(timer);
+
 	}
 
 	void startPlant()
@@ -162,11 +148,15 @@ public class PlayerActions : MonoBehaviour {
 
 	void startWater()
 	{
+		anim.SetTrigger ("Water");
 		player.canMove = false;
 		waterTimed = true;
 		player.runSpeed = 0;
 		player.jumpForce = 0;
-		timer = 1;
+		timer = anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+		StartCoroutine (watering ());
+		
+
 	}
 
 	void startSun()
@@ -184,7 +174,20 @@ public class PlayerActions : MonoBehaviour {
 		if(player.facingRight) //player is facing right
 			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 1), transform.rotation);
 		else //player is facing left
-			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 1), transform.rotation);
+			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+
+
+//        //replace this block with real values esp here
+//        GameObject inventoryUI = GameObject.Find("InventoryImage"); //replace with real one later
+//        Inventory inventory = inventoryUI.GetComponent<Inventory>();
+//        if (selectedPlant == 1)
+//        {
+//            inventory.seed1.Decrement();
+//        }
+//        else if (selectedPlant == 2)
+//        {
+//            inventory.seed2.Decrement();
+//        }
 		//please add animation trigger stuff here
 
 		plantTimed = false;
@@ -194,9 +197,20 @@ public class PlayerActions : MonoBehaviour {
 		this.transform.position = currentLocation;
 	}
 
+    void switchPlant(int selectedPlant) //Replace with real one
+    {
+        if (selectedPlant == 1)
+        {
+            selectedPlant = 2;
+        }
+        else if (selectedPlant == 2)
+        {
+            selectedPlant = 1;
+        }
+    }
+
 	void waterPlant()
 	{
-		//do watering animation trigger stuff here
 		plantPassed.GetComponent<SpawnPlant>().water();
 		plantPassed.GetComponent<SpawnPlant> ().spawnPlant ();
 		water -= 5; //lose 5 waters for each time you water a plant

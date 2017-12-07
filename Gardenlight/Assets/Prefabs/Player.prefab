@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4260853548756388}
   - component: {fileID: 50620582499943970}
   - component: {fileID: 61127068175385726}
-  - component: {fileID: 114909915749524196}
   - component: {fileID: 212611494143006874}
   - component: {fileID: 114678965603814670}
   - component: {fileID: 114921218504988224}
@@ -121,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   water: 100
-  player: {fileID: 114909915749524196}
+  player: {fileID: 0}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
   plantPassed: {fileID: 0}
   plantTimed: 0
@@ -175,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   water: 100
-  player: {fileID: 114909915749524196}
+  player: {fileID: 0}
   plant: {fileID: 4114751629233718, guid: 72e7dfa6b1c5b419abc5896dcd8517c8, type: 2}
   plantPassed: {fileID: 0}
   plantTimed: 0
@@ -186,8 +185,10 @@ MonoBehaviour:
   moveSpeed: 6
   playerHeight: 1
   waterLevel: 10
+  waterText: {fileID: 0}
   plantDistance: 2
   seedDistance: 1
+  selectedPlant: 1
   plantSelected: 1
 --- !u!212 &212611494143006874
 SpriteRenderer:
