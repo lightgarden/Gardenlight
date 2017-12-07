@@ -81,11 +81,11 @@ public class GameManager : MonoBehaviour {
 		return curLevel;
 	}
 
-	void Win () {
+	public void Win () {
 		SceneManager.LoadScene("Assets/_scene/win.unity");
 	}
 
-	void Loose() {
+	public void Lose() {
 		SceneManager.LoadScene("Assets/_scene/lose.unity");
 	}
 }
