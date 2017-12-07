@@ -10,6 +10,7 @@ public class PlayerActions : MonoBehaviour {
 	public Transform plant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
+    public GameObject inventoryCanvas;
 
 	public Animator anim;
 
@@ -28,7 +29,6 @@ public class PlayerActions : MonoBehaviour {
 	public float plantDistance = 2;
 	public float seedDistance = 1;
 	private bool plantContact;
-    public int selectedPlant = 1; //replace by the real one
 
 	public int plantSelected = 1;
 	//1 is beanstalk
@@ -46,11 +46,12 @@ public class PlayerActions : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		waterText.text = "Water level: " + waterLevel.ToString();
 		plantContact = false;
-		//plantDistance = playerHeight/2;
-	}
+        //plantDistance = playerHeight/2;
+        //inventoryCanvas = GameObject.Find("InventoryCanvas"); I don't think this line is necessary since I declared it at the beginning of the class and it looks like we can drag it in, but the forums say to have this, so idk
+    }
 
-	// Update is called once per frame
-	void Update () 
+    // Update is called once per frame
+    void Update () 
 	{
 		checkPassed ();
 
@@ -67,6 +68,15 @@ public class PlayerActions : MonoBehaviour {
 			{
 				startPlant();
 				currentLocation = this.transform.position;
+                Inventory inventory = inventoryCanvas.GetComponent<Inventory>();
+                if (plantSelected == 1)
+                {
+                    inventory.seed1.Decrement();
+                }
+                else
+                {
+                    inventory.seed2.Decrement();
+                }
 			}
 
 			else if (!player.isMoving && Input.GetKeyDown(KeyCode.O) && plantPassed != null && plantContact) //press O to water plant
@@ -98,11 +108,6 @@ public class PlayerActions : MonoBehaviour {
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
 		}
-
-        if (Input.GetKeyDown("e"))  //replace with real one
-        {
-            switchPlant(selectedPlant);
-        }
 
 	}
 
@@ -176,18 +181,6 @@ public class PlayerActions : MonoBehaviour {
 		else //player is facing left
 			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
 
-
-//        //replace this block with real values esp here
-//        GameObject inventoryUI = GameObject.Find("InventoryImage"); //replace with real one later
-//        Inventory inventory = inventoryUI.GetComponent<Inventory>();
-//        if (selectedPlant == 1)
-//        {
-//            inventory.seed1.Decrement();
-//        }
-//        else if (selectedPlant == 2)
-//        {
-//            inventory.seed2.Decrement();
-//        }
 		//please add animation trigger stuff here
 
 		plantTimed = false;
@@ -196,18 +189,6 @@ public class PlayerActions : MonoBehaviour {
 		player.canMove = true;
 		this.transform.position = currentLocation;
 	}
-
-    void switchPlant(int selectedPlant) //Replace with real one
-    {
-        if (selectedPlant == 1)
-        {
-            selectedPlant = 2;
-        }
-        else if (selectedPlant == 2)
-        {
-            selectedPlant = 1;
-        }
-    }
 
 	void waterPlant()
 	{
