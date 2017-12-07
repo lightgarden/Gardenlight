@@ -26,6 +26,7 @@ public class PlayerActions : MonoBehaviour {
 	public float plantDistance = 2;
 	public float seedDistance = 1;
 	private bool plantContact;
+    public int selectedPlant = 1; //replace by the real one
 
 	public int plantSelected = 1;
 	//1 is beanstalk
@@ -101,6 +102,11 @@ public class PlayerActions : MonoBehaviour {
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
 		}
+
+        if (Input.GetKeyDown("e"))  //replace with real one
+        {
+            switchPlant(selectedPlant);
+        }
 
 	}
 
@@ -187,6 +193,19 @@ public class PlayerActions : MonoBehaviour {
 			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
 		else //player is facing left
 			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+
+
+        //replace this block with real values esp here
+        GameObject inventoryUI = GameObject.Find("InventoryImage"); //replace with real one later
+        Inventory inventory = inventoryUI.GetComponent<Inventory>();
+        if (selectedPlant == 1)
+        {
+            inventory.seed1.Decrement();
+        }
+        else if (selectedPlant == 2)
+        {
+            inventory.seed2.Decrement();
+        }
 		//please add animation trigger stuff here
 
 		plantTimed = false;
@@ -195,6 +214,18 @@ public class PlayerActions : MonoBehaviour {
 		player.canMove = true;
 		this.transform.position = currentLocation;
 	}
+
+    void switchPlant(int selectedPlant) //Replace with real one
+    {
+        if (selectedPlant == 1)
+        {
+            selectedPlant = 2;
+        }
+        else if (selectedPlant == 2)
+        {
+            selectedPlant = 1;
+        }
+    }
 
 	void waterPlant()
 	{
