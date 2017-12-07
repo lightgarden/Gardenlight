@@ -172,9 +172,9 @@ public class PlayerActions : MonoBehaviour {
 	{
 		//the following instantiates a seed prefab at your feet slightly offset
 		if(player.facingRight) //player is facing right
-			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 1), transform.rotation);
+			Instantiate(plant, new Vector3(this.transform.position.x + seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
 		else //player is facing left
-			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2), transform.rotation);
+			Instantiate(plant, new Vector3(this.transform.position.x - seedDistance, this.transform.position.y - playerHeight / 2 - 0.3f), transform.rotation);
 
 
 //        //replace this block with real values esp here
@@ -224,7 +224,7 @@ public class PlayerActions : MonoBehaviour {
 	void sunPower()
 	{
 		//insert sun animations here
-		plantPassed.GetComponent<SpawnPlant>().sun();
+		//plantPassed.GetComponent<SpawnPlant>().sun();
 		sunTimed = false;
 		player.runSpeed = moveSpeed;
 		player.jumpForce = jumpForce;
