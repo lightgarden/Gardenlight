@@ -11,6 +11,8 @@ public class PlayerActions : MonoBehaviour {
 	public Transform plantPassed;
 	private Vector3 currentLocation;
 
+	public Animator anim;
+
 	public bool plantTimed;
 	public bool waterTimed;
 	public bool sunTimed;
@@ -41,6 +43,7 @@ public class PlayerActions : MonoBehaviour {
 		sunTimed = false;
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
+		anim = GetComponent<Animator> ();
 		waterText.text = "Water level: " + waterLevel.ToString();
 		plantContact = false;
 		//plantDistance = playerHeight/2;
@@ -53,7 +56,9 @@ public class PlayerActions : MonoBehaviour {
 
 		if (!player.isMoving && (plantTimed || waterTimed))
 		{
-			if (plantTimed) StartCoroutine(planting());
+			if (plantTimed)
+				StartCoroutine (planting ());
+
 		}
 
 		else
@@ -126,6 +131,10 @@ public class PlayerActions : MonoBehaviour {
 		sunPower();
 
 
+
+
+		//yield return new WaitForSecondsRealtime(timer);
+
 	}
 
 	void startPlant()
@@ -139,12 +148,15 @@ public class PlayerActions : MonoBehaviour {
 
 	void startWater()
 	{
+		anim.SetTrigger ("Water");
 		player.canMove = false;
 		waterTimed = true;
 		player.runSpeed = 0;
 		player.jumpForce = 0;
-		timer = 1;
+		timer = anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
 		StartCoroutine (watering ());
+		
+
 	}
 
 	void startSun()
@@ -199,7 +211,6 @@ public class PlayerActions : MonoBehaviour {
 
 	void waterPlant()
 	{
-		//do watering animation trigger stuff here
 		plantPassed.GetComponent<SpawnPlant>().water();
 		plantPassed.GetComponent<SpawnPlant> ().spawnPlant ();
 		water -= 5; //lose 5 waters for each time you water a plant
