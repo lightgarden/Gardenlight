@@ -27,12 +27,13 @@ public class SpawnPlant : MonoBehaviour {
 	// Update is called once per frame
 	public void spawnPlant() {
 		//for testing only
-		if (plantType == 1 && !grown) {
+		if (plantType == 0 && !grown) {
 			grown = true;
 			growPlantBeanStalk();
 		} else if (plantType == 2 && !grown) {
 			grown = true;
-			growPlantMushroom ();
+			growPlant ();
+			//Grow plant is plant with leaves only on top
 		} 
 	}
 
@@ -168,13 +169,5 @@ public class SpawnPlant : MonoBehaviour {
 		else {
 			Destroy (this.gameObject);
 		}
-	}
-
-	void growPlantMushroom()
-	{
-		Vector2 PlantPos = GetComponent<Transform> ().position;
-		Instantiate (stalk,new Vector3(PlantPos.x, PlantPos.y, 0.0f), Quaternion.identity);
-		Instantiate (MushroomTop, new Vector3(PlantPos.x, PlantPos.y + 3.0f, 0.0f), Quaternion.identity);
-		Destroy (this.gameObject);
 	}
 }
