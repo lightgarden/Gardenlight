@@ -142,11 +142,11 @@ MonoBehaviour:
   state: 0
   levelHeight: 90
   curHeight: 0
-  bg: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df, type: 2}
-  startBg: {fileID: 519514923}
-  lvl2: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df, type: 2}
-  lvl3: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df, type: 2}
-  lvl4: {fileID: 1504469408391318, guid: 005ac178fca8746e5835e78715b12936, type: 2}
+  startPos: {x: 0, y: 0, z: 0}
+  lvl1BGs: []
+  lvl2BGs: []
+  lvl3BGs: []
+  lvl4BGs: []
   player: {fileID: 1958147714}
   winText: {fileID: 0}
   loseText: {fileID: 0}
@@ -534,11 +534,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 433159956}
---- !u!1 &519514923 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1581319664649956, guid: 7f7badf69cd444094868daee90e060df,
-    type: 2}
-  m_PrefabInternal: {fileID: 879152236}
 --- !u!1 &574200442
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +908,27 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212458142701301920, guid: 7f7badf69cd444094868daee90e060df,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bfa47bfb16882e49a759adf05382f8f,
+        type: 3}
+    - target: {fileID: 212458142701301920, guid: 7f7badf69cd444094868daee90e060df,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 19.199999
+      objectReference: {fileID: 0}
+    - target: {fileID: 212458142701301920, guid: 7f7badf69cd444094868daee90e060df,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 212458142701301920, guid: 7f7badf69cd444094868daee90e060df,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7f7badf69cd444094868daee90e060df, type: 2}
