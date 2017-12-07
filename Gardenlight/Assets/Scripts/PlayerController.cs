@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public bool canMove; //checks if player is allowed to move
 	public bool isMoving;
 	public bool jumped;
+	public bool facingRight;
 
 	public Animator anim;
 
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour {
         canMove = true;
 		isMoving = false;
 		jumped = false;
+		facingRight = true;
 	}
 
 	// Update is called once per frame
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 			//flip sprite on x
 			anim.SetBool("Walk", true);
 			GetComponent<SpriteRenderer>().flipX = true;
+			facingRight = false;
 			velo -= runSpeed;
 			isMoving = true;
 		}
@@ -43,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			anim.SetBool ("Walk", true);
 			GetComponent<SpriteRenderer>().flipX = false;
+			facingRight = true;
 			velo += runSpeed;
 			isMoving = true;
 		}
@@ -69,8 +73,9 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	bool OnGround ()
-	{
+
+	public bool OnGround () {
+
 
 		//find width and height of character
 		BoxCollider2D coll = GetComponent<BoxCollider2D> ();
