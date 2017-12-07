@@ -125,7 +125,7 @@ public class SpawnPlant : MonoBehaviour {
 
 		//Chace a leaf will spawn
 		int leafSpawnRate = 5;
-		stalk = Instantiate (stalk,new Vector3(transform.position.x, transform.position.y, 0.0f), Quaternion.identity) as GameObject;
+		stalk = Instantiate (stalk,new Vector3(transform.position.x + 0.25f, transform.position.y + 2.3f, 0.0f), Quaternion.identity) as GameObject;
 		StartCoroutine(growingStalks(counter, leafSpawnRate));
 	}
 
@@ -161,11 +161,11 @@ public class SpawnPlant : MonoBehaviour {
 		if (counter >= 0) 
 		{
 			Debug.Log ("growing stalk");
-			stalk.transform.localScale = new Vector2 (stalk.transform.localScale.x, stalk.transform.localScale.y + 0.25f);
-			stalk.transform.position = new Vector2 (stalk.transform.position.x, stalk.transform.position.y + 0.125f);
+			stalk.transform.localScale = new Vector2 (stalk.transform.localScale.x, stalk.transform.localScale.y + 0.1f);
+			stalk.transform.position = new Vector2 (stalk.transform.position.x, stalk.transform.position.y + 0.37f);
 			if (Random.Range (1, 100) <= leafSpawnRate) 
 			{
-				leafSpawnRate = -70;
+				leafSpawnRate = -60;
 				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 2);
 				leaf = Instantiate (leaf, leafPos, Quaternion.identity) as GameObject;
 				if (leaf.transform.position.x > stalk.transform.position.x)
