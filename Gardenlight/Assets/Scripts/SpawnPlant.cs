@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,11 @@ public class SpawnPlant : MonoBehaviour {
 
 	// This program will spawn leaf prefabs a certain height above the plant seedling
 
+	private bool grown = false;
+	public int plantType;
 	public GameObject leaf;
 	public GameObject stalk;
+	public GameObject MushroomTop;
 	bool grow_status = false;
 	List<GameObject> leafObjects;
 	public bool water_status = false;
@@ -15,17 +18,22 @@ public class SpawnPlant : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
-
+	void Start () 
+	{
+		plantType = GetComponent<PlantType> ().getPlantType ();
 
 	}
 
 	// Update is called once per frame
-	void Update () {
+	public void spawnPlant() {
 		//for testing only
-		if (Input.GetKeyDown ("space")) {
-			growPlant();
-		}
+		if (plantType == 1 && !grown) {
+			grown = true;
+			growPlantBeanStalk();
+		} else if (plantType == 2 && !grown) {
+			grown = true;
+			growPlantMushroom ();
+		} 
 	}
 
 	public void water()
@@ -96,5 +104,77 @@ public class SpawnPlant : MonoBehaviour {
 		//
 		// }
 
+	}
+
+	//Done by Andrew Cao
+	//Testing new method to grow plant
+	void growPlantBeanStalk()
+	{
+		//Plant height
+		int counter = Random.Range (60, 80);
+
+		//Chace a leaf will spawn
+		int leafSpawnRate = 10;
+		stalk = Instantiate (stalk,new Vector3(transform.position.x, transform.position.y, 0.0f), Quaternion.identity) as GameObject;
+		StartCoroutine(growingStalks(counter, leafSpawnRate));
+	}
+
+	IEnumerator growingStalks (int counter, int leafSpawnRate)
+	{
+		yield return new WaitForSeconds(0.1f);
+		counter--;
+
+		//Old Stalk creation. Used multiple stalk
+		/*if (counter >= 0) {
+			Instantiate (stalk, new Vector3 (PrevPos.x, PrevPos.y, 0.0f), Quaternion.identity);
+			int leafDistribution = Random.Range (1, 5);
+			if (leafDistribution >= 4) {
+				Instantiate (leaf, new Vector3 (PrevPos.x - 1.0f, PrevPos.y + Random.Range (-1.0f, 1.0f), 0.0f), Quaternion.identity);
+				Debug.Log ("left leaf");
+			} 
+
+			//right leaf
+			else if (leafDistribution >= 2) {
+				Instantiate (leaf, new Vector3 (PrevPos.x + 1.0f, PrevPos.y + Random.Range (-1.0f, 1.0f), 0.0f), Quaternion.Euler (0.0f, 180.0f, 0.0f));
+				Debug.Log ("right leaf");
+			} 
+
+			//both leaf
+			else {
+				Instantiate (leaf, new Vector3 (PrevPos.x - 1.0f, PrevPos.y + Random.Range (-1.0f, 1.0f), 0.0f), Quaternion.identity);
+				Instantiate (leaf, new Vector3 (PrevPos.x + 1.0f, PrevPos.y + Random.Range (-1.0f, 1.0f), 0.0f), Quaternion.Euler (0.0f, 180.0f, 0.0f));
+				Debug.Log ("both leaf");
+			}
+			StartCoroutine (growingStalks (counter, PrevPos));
+		} */
+
+		if (counter >= 0) 
+		{
+			Debug.Log ("growing stalk");
+			stalk.transform.localScale = new Vector2 (stalk.transform.localScale.x, stalk.transform.localScale.y + 0.25f);
+			stalk.transform.position = new Vector2 (stalk.transform.position.x, stalk.transform.position.y + 0.125f);
+			StartCoroutine (growingStalks (counter, leafSpawnRate));
+			if (Random.Range (1, 100) <= leafSpawnRate) {
+				leafSpawnRate = 10;
+				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 2);
+				leaf = Instantiate (leaf, leafPos, Quaternion.identity) as GameObject;
+				if (leaf.transform.position.x > stalk.transform.position.x)
+					leaf.transform.rotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);
+			} 
+			else
+				leafSpawnRate += 10;
+		}
+
+		else {
+			Destroy (this.gameObject);
+		}
+	}
+
+	void growPlantMushroom()
+	{
+		Vector2 PlantPos = GetComponent<Transform> ().position;
+		Instantiate (stalk,new Vector3(PlantPos.x, PlantPos.y, 0.0f), Quaternion.identity);
+		Instantiate (MushroomTop, new Vector3(PlantPos.x, PlantPos.y + 3.0f, 0.0f), Quaternion.identity);
+		Destroy (this.gameObject);
 	}
 }
