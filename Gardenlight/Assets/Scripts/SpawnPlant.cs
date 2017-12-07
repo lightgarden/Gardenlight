@@ -10,6 +10,7 @@ public class SpawnPlant : MonoBehaviour {
 	public int plantType;
 	public GameObject leaf;
 	public GameObject stalk;
+	public GameObject flower;
 	public GameObject MushroomTop;
 	bool grow_status = false;
 	List<GameObject> leafObjects;
@@ -123,7 +124,7 @@ public class SpawnPlant : MonoBehaviour {
 		//Plant height
 		int counter = Random.Range (30, 40);
 
-		//Chace a leaf will spawn
+		//Chance a leaf will spawn
 		int leafSpawnRate = 5;
 		stalk = Instantiate (stalk,new Vector3(transform.position.x + 0.25f, transform.position.y + 2.3f, 0.0f), Quaternion.identity) as GameObject;
 		StartCoroutine(growingStalks(counter, leafSpawnRate));
@@ -178,6 +179,9 @@ public class SpawnPlant : MonoBehaviour {
 		}
 
 		else {
+			float height = stalk.GetComponent <SpriteRenderer>().bounds.size.y;
+			GameObject tulip = Instantiate (flower,new Vector3(transform.position.x + 0.25f, height*4/5, 0.0f), Quaternion.identity) as GameObject;
+
 			Destroy (this.gameObject);
 		}
 	}
