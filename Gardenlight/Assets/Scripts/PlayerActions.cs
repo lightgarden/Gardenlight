@@ -44,7 +44,7 @@ public class PlayerActions : MonoBehaviour {
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
 		anim = GetComponent<Animator> ();
-		waterText.text = "Water level: " + waterLevel.ToString();
+		//waterText.text = "Water level: " + waterLevel.ToString();
 		plantContact = false;
 		//plantDistance = playerHeight/2;
 	}
