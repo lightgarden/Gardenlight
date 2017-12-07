@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -81,10 +82,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Win () {
-		//winText.SetActive (true);
+		SceneManager.LoadScene("Assets/_scene/win.unity");
 	}
 
 	void Loose() {
-		//loseText.SetActive (true);
+		SceneManager.LoadScene("Assets/_scene/lose.unity");
 	}
 }
