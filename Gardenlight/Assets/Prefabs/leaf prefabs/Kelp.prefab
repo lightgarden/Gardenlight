@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 251929669369048976}
   - component: {fileID: 95809139926499456}
   m_Layer: 0
-  m_Name: beansprout2
+  m_Name: Kelp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
