@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     public float screenEdgeBuffer = .3f;
-    public float safeCloudDistance = 10f;
+    public float safeCloudDistance = 40f;
     public float smoothTime = .3f;
     public GameObject safeCloud;
 

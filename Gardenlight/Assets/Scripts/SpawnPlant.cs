@@ -59,13 +59,13 @@ public class SpawnPlant : MonoBehaviour {
 
 
 	void growPlant(){
-		Debug.Log ("leaf plant");
+		//Debug.Log ("leaf plant");
 		Vector3 location = transform.position;
-		Debug.Log (location.ToString ("F3"));
+		//Debug.Log (location.ToString ("F3"));
 		//Vector2 size_x = transform.localScale.x;
 		float height = stalk.GetComponent <SpriteRenderer>().bounds.size.y;
-		float size = Random.Range (0.5f, 0.75f);
-		Debug.Log (height * size);
+		float size = Random.Range (0.45f, 0.6f);
+		//Debug.Log (height * size);
 
 		//seting the scale of the stalk
 		//stalk.transform.localScale = new Vector2(transform.localScale.x, Mathf.Abs(leafLocation1.y)+4.0f*Mathf.Abs(leafScale.y));
@@ -86,8 +86,8 @@ public class SpawnPlant : MonoBehaviour {
 
 		var leafScale = new Vector2 (Random.Range(0.5f,1.0f), Random.Range(0.5f,0.75f));
 		var leafLocation1 =
-			new Vector2 (stalkPosition.x-2f*leafScale.x, stalkPosition.y+ height*size - leafScale.y);
-		print (stalk.GetComponent <SpriteRenderer> ().bounds.size.y);
+			new Vector2 (stalkPosition.x-2f*leafScale.x, stalkPosition.y+ height*size - 2 * leafScale.y);
+		//print (stalk.GetComponent <SpriteRenderer> ().bounds.size.y);
 		//add the first leaf
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[0].transform.position = leafLocation1;
@@ -97,7 +97,7 @@ public class SpawnPlant : MonoBehaviour {
 
 		//add the second leaf
 		var leafLocation2 =
-			new Vector3 (location.x+2f*leafScale.x, stalkPosition.y+height*size  - leafScale.y);
+			new Vector3 (location.x+2f*leafScale.x, stalkPosition.y+height*size  -  2 * leafScale.y);
 		leafObjects.Add(Instantiate(leaf));
 		leafObjects[1].transform.position = leafLocation2;
 		var leftScale = new Vector2((-1.0f)*leafScale.x, leafScale.y);
@@ -167,7 +167,7 @@ public class SpawnPlant : MonoBehaviour {
 			if (Random.Range (1, 100) <= leafSpawnRate) 
 			{
 				leafSpawnRate = -60;
-				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 2);
+				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 3);
 				leaf = Instantiate (leaf, leafPos, Quaternion.identity) as GameObject;
 				if (leaf.transform.position.x > stalk.transform.position.x)
 					leaf.transform.rotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);

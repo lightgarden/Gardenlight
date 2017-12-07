@@ -14,6 +14,9 @@ public class PlayerActions : MonoBehaviour {
 	private Vector3 currentLocation;
     public GameObject inventoryCanvas;
 
+	public GameObject[] sproutSeeds;
+	public GameObject[] tallSeets;
+
 	public Animator anim;
 
 	public bool plantTimed;

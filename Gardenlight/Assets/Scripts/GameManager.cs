@@ -181,10 +181,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win () {
+		Debug.Log ("win");
 		SceneManager.LoadScene("Assets/_scene/win.unity");
 	}
 
 	public void Lose() {
+		Debug.Log ("Lose");
 		SceneManager.LoadScene("Assets/_scene/lose.unity");
 	}
 }

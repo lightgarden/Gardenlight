@@ -93,7 +93,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantType: 1
   leaf: {fileID: 1763491771369092, guid: 3c0a7980811484465a6e7737eddd10a4, type: 2}
-  stalk: {fileID: 1068579661847314, guid: fdb75e34815534f84b7a21ec0f4bc508, type: 2}
+  stalk: {fileID: 1856097463013218, guid: 54990d21bbf2a784d9dab3be5549a3c7, type: 2}
+  flower: {fileID: 0}
   MushroomTop: {fileID: 1348382527391786, guid: 7dce8610bfa974d15bbe534053bd4dc0,
     type: 2}
   water_status: 0
