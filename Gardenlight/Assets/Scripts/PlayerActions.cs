@@ -9,6 +9,7 @@ public class PlayerActions : MonoBehaviour {
 	public PlayerController player;
 	public Transform plant;
 	public Transform BeanSproutPlant;
+	//public GameObject plant;
 	public Transform plantPassed;
 	private Vector3 currentLocation;
     public GameObject inventoryCanvas;
@@ -45,7 +46,7 @@ public class PlayerActions : MonoBehaviour {
 		jumpForce = player.jumpForce;
 		moveSpeed = player.runSpeed;
 		anim = GetComponent<Animator> ();
-		waterText.text = "Water level: " + waterLevel.ToString();
+		waterText.text = "Water level: " + water.ToString();
 		plantContact = false;
         //plantDistance = playerHeight/2;
         //inventoryCanvas = GameObject.Find("InventoryCanvas"); I don't think this line is necessary since I declared it at the beginning of the class and it looks like we can drag it in, but the forums say to have this, so idk
@@ -109,6 +110,8 @@ public class PlayerActions : MonoBehaviour {
 				Debug.Log ("Plant " + plantSelected + " is selected");
 			}
 		}
+
+		waterText.text = "Water level: " + water.ToString();
 
 	}
 
@@ -176,6 +179,8 @@ public class PlayerActions : MonoBehaviour {
 
 	void plantSeed()
 	{
+		GameObject seed;
+		Vector3 current = this.transform.position;
 		//the following instantiates a seed prefab at your feet slightly offset
 		if (player.facingRight) 
 		{ //player is facing right
