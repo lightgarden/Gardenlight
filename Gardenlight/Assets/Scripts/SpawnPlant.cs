@@ -28,10 +28,12 @@ public class SpawnPlant : MonoBehaviour {
 	// Update is called once per frame
 	public void spawnPlant() {
 		//for testing only
-		if (plantType == 0 && !grown) {
+		if (plantType == 0 && !grown) 
+		{
 			grown = true;
 			growPlantBeanStalk();
-		} else if (plantType == 2 && !grown) {
+		} 
+		else if (plantType == 1 && !grown) {
 			grown = true;
 			growPlant ();
 			//Grow plant is plant with leaves only on top
@@ -46,8 +48,9 @@ public class SpawnPlant : MonoBehaviour {
 
 	public void sun()
 	{
-		if (water_status == true && grow_status == false) {
-            growPlant();
+		if (water_status == true && grow_status == false) 
+		{
+            //growPlant();
 			grow_status =true;
 		}
 	}
@@ -55,6 +58,7 @@ public class SpawnPlant : MonoBehaviour {
 
 
 	void growPlant(){
+		Debug.Log ("leaf plant");
 		Vector3 location = transform.position;
 		Debug.Log (location.ToString ("F3"));
 		//Vector2 size_x = transform.localScale.x;
@@ -116,7 +120,7 @@ public class SpawnPlant : MonoBehaviour {
 		int counter = Random.Range (60, 80);
 
 		//Chace a leaf will spawn
-		int leafSpawnRate = 10;
+		int leafSpawnRate = 5;
 		stalk = Instantiate (stalk,new Vector3(transform.position.x, transform.position.y, 0.0f), Quaternion.identity) as GameObject;
 		StartCoroutine(growingStalks(counter, leafSpawnRate));
 	}
@@ -155,16 +159,18 @@ public class SpawnPlant : MonoBehaviour {
 			Debug.Log ("growing stalk");
 			stalk.transform.localScale = new Vector2 (stalk.transform.localScale.x, stalk.transform.localScale.y + 0.25f);
 			stalk.transform.position = new Vector2 (stalk.transform.position.x, stalk.transform.position.y + 0.125f);
-			StartCoroutine (growingStalks (counter, leafSpawnRate));
-			if (Random.Range (1, 100) <= leafSpawnRate) {
-				leafSpawnRate = 10;
+			if (Random.Range (1, 100) <= leafSpawnRate) 
+			{
+				leafSpawnRate = -60;
 				Vector3 leafPos = new Vector3 (stalk.transform.position.x + Mathf.Sign (Random.Range (-1.0f, 1.0f)), stalk.transform.position.y + stalk.transform.localScale.y / 2);
 				leaf = Instantiate (leaf, leafPos, Quaternion.identity) as GameObject;
 				if (leaf.transform.position.x > stalk.transform.position.x)
 					leaf.transform.rotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);
 			} 
 			else
-				leafSpawnRate += 10;
+				leafSpawnRate += 5;
+
+			StartCoroutine (growingStalks (counter, leafSpawnRate));
 		}
 
 		else {
